@@ -1,6 +1,10 @@
 import { useState } from 'react';
+import { API } from '../lib/api';
+import { AUTH } from '../lib/auth';
+import { useNavigate } from 'react-router-dom';
 
 export default function Register() {
+  const navigate = useNavigate();
   const [formFields, setFormFields] = useState({
     username: '',
     email: '',
@@ -12,8 +16,23 @@ export default function Register() {
     setFormFields({ ...formFields, [event.target.name]: event.target.value });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    try {
+      await API.POST(API.ENDPOINTS.register, formFields);
+
+      const loginData = await API.POST(API.ENDPOINTS.login, {
+        email: formFields.email,
+        password: formFields.password
+      });
+
+      AUTH.setToken(loginData.data.token);
+
+      console.log('Logged in!');
+      navigate('/');
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -59,6 +78,7 @@ export default function Register() {
             onChange={handleChange}
           ></input>
         </div>
+        <button type='submit'>Register</button>
       </form>
     </div>
   );
