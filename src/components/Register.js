@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { API } from '../lib/api';
 import { AUTH } from '../lib/auth';
 import { useNavigate } from 'react-router-dom';
+import '../styles/Register.scss';
 
 export default function Register() {
   const navigate = useNavigate();
@@ -36,50 +37,54 @@ export default function Register() {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor='email'>Email</label>
-          <input
-            type='email'
-            id='email'
-            name='email'
-            value={formFields.email}
-            onChange={handleChange}
-          ></input>
-        </div>
-        <div>
-          <label htmlFor='username'>Username</label>
-          <input
-            type='text'
-            id='username'
-            name='username'
-            value={formFields.username}
-            onChange={handleChange}
-          ></input>
-        </div>
-        <div>
-          <label htmlFor='password'>Password</label>
-          <input
-            type='password'
-            id='password'
-            name='password'
-            value={formFields.password}
-            onChange={handleChange}
-          ></input>
-        </div>
-        <div>
-          <label htmlFor='passwordConfirmation'>Confirm Password</label>
-          <input
-            type='password'
-            id='passwordConfirmation'
-            name='passwordConfirmation'
-            value={formFields.passwordConfirmation}
-            onChange={handleChange}
-          ></input>
-        </div>
-        <button type='submit'>Register</button>
-      </form>
+    <div className='Register'>
+      <div className='outer-container'>
+        <h2>Register</h2>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor='email'>Email:</label>
+            <input
+              type='email'
+              id='email'
+              name='email'
+              value={formFields.email}
+              onChange={handleChange}
+            ></input>
+          </div>
+          <div>
+            <label htmlFor='username'>Username:</label>
+            <input
+              type='text'
+              id='username'
+              name='username'
+              value={formFields.username}
+              onChange={handleChange}
+            ></input>
+          </div>
+          <div>
+            <label htmlFor='password'>Password:</label>
+            <input
+              type='password'
+              id='password'
+              name='password'
+              value={formFields.password}
+              onChange={handleChange}
+            ></input>
+          </div>
+          <div>
+            <label htmlFor='passwordConfirmation'>Confirm Password:</label>
+            <input
+              type='password'
+              id='passwordConfirmation'
+              name='passwordConfirmation'
+              value={formFields.passwordConfirmation}
+              onChange={handleChange}
+            ></input>
+          </div>
+
+          <button type='submit'>Sign up</button>
+        </form>
+      </div>
     </div>
   );
 }
