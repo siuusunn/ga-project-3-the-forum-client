@@ -19,7 +19,7 @@ export default function CreatePost() {
     e.preventDefault();
     API.POST(API.ENDPOINTS.allPosts, formFields, API.getHeaders())
       .then(({ data }) => navigate(`/posts/${data._id}`))
-      .catch((error) => console.log(error));
+      .catch((error) => console.error(error));
   };
 
   return (
