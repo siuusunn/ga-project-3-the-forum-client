@@ -6,6 +6,7 @@ import Home from './components/Home';
 import CreatePost from './components/CreatePost';
 import Login from './components/Login';
 import Register from './components/Register';
+import PostsIndex from './components/PostsIndex';
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/posts' />
+          <Route path='/posts' element={<PostsIndex />} />
           <Route path='/posts/create' element={<CreatePost />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
