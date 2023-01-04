@@ -7,6 +7,7 @@ import CreatePost from './components/CreatePost';
 import Login from './components/Login';
 import Register from './components/Register';
 import PostsIndex from './components/PostsIndex';
+import CommentThread from './components/common/CommentThread'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path='/' element={<Home />} />
+          <Route path='/commentdev' element={<CommentThread />} />
           <Route path='/posts' element={<PostsIndex />} />
           <Route path='/posts/create' element={<CreatePost />} />
           <Route path='/login' element={<Login />} />
