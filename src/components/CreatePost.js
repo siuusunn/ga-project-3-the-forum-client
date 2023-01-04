@@ -29,8 +29,8 @@ export default function CreatePost() {
         <input
           type='text'
           id='title'
-          name='title'
-          value={formFields.title}
+          name='text'
+          value={formFields.text}
           onChange={handleChange}
         ></input>
       </div>
