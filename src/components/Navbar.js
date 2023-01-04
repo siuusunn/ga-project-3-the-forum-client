@@ -1,16 +1,32 @@
 import { Sidebar, Menu, MenuItem, useProSidebar } from 'react-pro-sidebar';
+import { useAuthenticated } from '../hooks/useAuthenticated';
+
 import {
   MenuOutlined,
   LoginOutlined,
   HomeOutlined,
   PostAddOutlined,
   LibraryBooksOutlined,
-  HowToRegOutlined
+  HowToRegOutlined,
+  LogoutOutlined,
+  AccountCircleOutlined
 } from '@mui/icons-material';
-import { Link } from 'react-router-dom';
+
+import { Link, useNavigate } from 'react-router-dom';
+import { AUTH } from '../lib/auth';
 
 export default function Navbar() {
+  const [isLoggedIn, setIsLoggedIn] = useAuthenticated();
+  const navigate = useNavigate();
+
+  const logout = () => {
+    AUTH.deleteToken();
+    setIsLoggedIn(false);
+    navigate('/');
+  };
+
   const { collapseSidebar } = useProSidebar();
+
   return (
     <Sidebar style={{ height: '100vh' }}>
       <Menu>
@@ -38,15 +54,39 @@ export default function Navbar() {
         >
           Add a New Post
         </MenuItem>
-        <MenuItem icon={<LoginOutlined />} routerLink={<Link to='/login' />}>
-          Login
-        </MenuItem>
-        <MenuItem
-          icon={<HowToRegOutlined />}
-          routerLink={<Link to='/register' />}
-        >
-          Register
-        </MenuItem>
+
+        {isLoggedIn ? (
+          <>
+            <MenuItem
+              icon={<AccountCircleOutlined />}
+              routerLink={<Link to='/profile' />}
+            >
+              Profile
+            </MenuItem>
+            <MenuItem
+              icon={<LogoutOutlined />}
+              routerLink={<Link to='/' />}
+              onClick={logout}
+            >
+              Log out
+            </MenuItem>
+          </>
+        ) : (
+          <>
+            <MenuItem
+              icon={<LoginOutlined />}
+              routerLink={<Link to='/login' />}
+            >
+              Login
+            </MenuItem>
+            <MenuItem
+              icon={<HowToRegOutlined />}
+              routerLink={<Link to='/register' />}
+            >
+              Register
+            </MenuItem>
+          </>
+        )}
       </Menu>
     </Sidebar>
   );
