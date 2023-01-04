@@ -59,7 +59,7 @@ export default function Navbar() {
           <>
             <MenuItem
               icon={<AccountCircleOutlined />}
-              routerLink={<Link to='/profile' />}
+              routerLink={<Link to={`/profile/${AUTH.getPayload().userId}`} />}
             >
               Profile
             </MenuItem>
