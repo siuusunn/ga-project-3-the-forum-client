@@ -5,7 +5,8 @@ import { API } from '../lib/api';
 export default function CreatePost() {
   const navigate = useNavigate();
   const [formFields, setFormFields] = useState({
-    text: '',
+    topic: '',
+    content: '',
     timestamp: '',
     likes: 0,
     dislikes: 0
@@ -25,12 +26,22 @@ export default function CreatePost() {
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <label>Post Content</label>
+        <label>Topic</label>
         <input
           type='text'
-          id='title'
-          name='text'
-          value={formFields.text}
+          id='topic'
+          name='topic'
+          value={formFields.topic}
+          onChange={handleChange}
+        ></input>
+      </div>
+      <div>
+        <label>Content</label>
+        <input
+          type='text'
+          id='content'
+          name='content'
+          value={formFields.content}
           onChange={handleChange}
         ></input>
       </div>
