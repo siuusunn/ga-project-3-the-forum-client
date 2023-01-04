@@ -9,6 +9,8 @@ import Login from './components/Login';
 import Register from './components/Register';
 import PostsIndex from './components/PostsIndex';
 
+window.Buffer = window.Buffer || require('buffer').Buffer;
+
 function App() {
   return (
     <div id='app' style={({ height: '100vh' }, { display: 'flex' })}>
