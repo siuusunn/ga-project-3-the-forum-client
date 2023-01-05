@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { API } from '../../lib/api';
 import '../../styles/CommentCard.scss';
 
@@ -7,13 +8,34 @@ export default function CommentCard({
   dislikes,
   comments,
   username,
-  commentId
+  commentId,
+  setIsContentUpdated
 }) {
+  const [newReplyFormFields, setNewReplyFormFields] = useState({
+    text: ''
+  });
+
+  const handleNewReplyChange = (event) => {
+    setNewReplyFormFields({ [event.target.name]: event.target.value });
+  };
+
+  const handleReplySubmit = (event) => {
+    event.preventDefault();
+    API.POST(API.ENDPOINTS.singleComment(commentId), newReplyFormFields, API.getHeaders())
+      .then(({ data }) => {
+        console.log(data);
+        console.log('Posted comment');
+        setIsContentUpdated(true);
+      })
+      .catch((err) => console.error(err));
+  };
+
   const handleDeleteComment = () => {
     API.DELETE(API.ENDPOINTS.singleComment(commentId), API.getHeaders())
       .then(({ data }) => {
         console.log(data);
         console.log('Deleted review');
+        setIsContentUpdated(true);
       })
       .catch((err) => console.error(err));
   };
@@ -31,6 +53,17 @@ export default function CommentCard({
             Likes: {likes}, Dislikes: {dislikes}
           </p>
           <button onClick={handleDeleteComment}>Delete</button>
+          <form onSubmit={handleReplySubmit}>
+            <label htmlFor='comment-text'> Reply: </label>
+            <input
+              type='text'
+              id='comment-text'
+              name='text'
+              value={newReplyFormFields.text}
+              onChange={handleNewReplyChange}
+            ></input>
+            <button type='submit'>Post reply</button>
+          </form>
         </div>
         {comments?.map((comment) => {
           return (
@@ -41,6 +74,7 @@ export default function CommentCard({
               dislikes={comment.dislikes}
               comments={comment.comments}
               username={comment.addedBy.username}
+              setIsContentUpdated={setIsContentUpdated}
             ></CommentCard>
           );
         })}

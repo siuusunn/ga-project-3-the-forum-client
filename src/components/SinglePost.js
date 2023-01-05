@@ -14,7 +14,7 @@ export default function SinglePost() {
   const [newCommentFormFields, setNewCommentFormFields] = useState({
     text: ''
   });
-  const [newCommentSubmitted, setNewCommentSubmitted] = useState(false);
+  const [isContentUpdated, setIsContentUpdated] = useState(false);
 
   useEffect(() => {
     API.GET(API.ENDPOINTS.singlePost(id))
@@ -25,9 +25,9 @@ export default function SinglePost() {
         console.error(message, response);
       });
 
-    setNewCommentSubmitted(false);
-    console.log(newCommentSubmitted);
-  }, [id, newCommentSubmitted]);
+    setIsContentUpdated(false);
+    console.log(isContentUpdated);
+  }, [id, isContentUpdated]);
 
   const handleNewCommentChange = (event) => {
     setNewCommentFormFields({ [event.target.name]: event.target.value });
@@ -43,11 +43,9 @@ export default function SinglePost() {
     )
       .then(({ data }) => {
         console.log(data);
+        setIsContentUpdated(true);
       })
       .catch((err) => console.error(err));
-
-    setNewCommentSubmitted(true);
-    console.log(newCommentSubmitted);
   };
 
   return (
@@ -78,7 +76,10 @@ export default function SinglePost() {
             </div>
             <button type='submit'>Submit</button>
           </form>
-          <CommentThread comments={singlePost?.comments} />
+          <CommentThread
+            comments={singlePost?.comments}
+            setIsContentUpdated={setIsContentUpdated}
+          />
         </div>
       </Container>
     </>
