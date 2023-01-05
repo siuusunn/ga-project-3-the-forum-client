@@ -18,8 +18,6 @@ export default function Profile() {
     cloudinaryImageId: ''
   });
 
-  console.log(id);
-
   useEffect(() => {
     API.GET(API.ENDPOINTS.singleUser(id))
       .then(({ data }) => {
@@ -36,6 +34,7 @@ export default function Profile() {
     <>
       <Container>
         <h1>User Profile</h1>
+        <ProfilePicture cloudinaryImageId={userData?.cloudinaryImageId} />
         <p>Username: {userData?.username}</p>
         <p>User ID: {userData?._id}</p>
       </Container>
