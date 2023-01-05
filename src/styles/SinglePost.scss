@@ -1,7 +1,6 @@
-.SinglePost{
-.comments-container{
-  border: 2px solid pink;
-  display: flex;
-  flex-direction: column;
-}
+.SinglePost {
+  .comments-container {
+    display: flex;
+    flex-direction: column;
+  }
 }
