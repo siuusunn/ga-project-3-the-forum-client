@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { API } from '../lib/api';
 
+import TextEditor from './common/TextEditor';
+
 export default function CreatePost() {
   const navigate = useNavigate();
   const [formFields, setFormFields] = useState({
@@ -44,6 +46,7 @@ export default function CreatePost() {
           value={formFields.content}
           onChange={handleChange}
         ></input>
+        <TextEditor />
       </div>
       <button type='submit'>Submit</button>
     </form>
