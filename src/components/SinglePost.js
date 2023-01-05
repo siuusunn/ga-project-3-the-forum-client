@@ -48,14 +48,15 @@ export default function SinglePost() {
       .catch((err) => console.error(err));
   };
 
+  const humanDate = new Date(singlePost?.createdAt);
+
   return (
     <>
       <Container className='SinglePost'>
         <Box>
           <h1>{singlePost?.topic}</h1>
-          <p>
-            Posted by: {singlePost?.addedBy.username} on {singlePost?.timestamp}
-          </p>
+          <p>Posted by: {singlePost?.addedBy.username}</p>
+          <p>Posted on {singlePost?.createdAt}</p>
           <p>{singlePost?.content}</p>
           <p>
             Likes: {singlePost?.likes} | Dislikes: {singlePost?.dislikes}
