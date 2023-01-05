@@ -4,7 +4,7 @@ import CommentCard from './CommentCard';
 import { API } from '../../lib/api';
 import '../../styles/CommentThread.scss';
 
-export default function CommentThread({ comments }) {
+export default function CommentThread({ comments, setIsContentUpdated }) {
   const [testPost, setTestPost] = useState(null);
   const { id } = useParams();
 
@@ -30,6 +30,7 @@ export default function CommentThread({ comments }) {
             comments={comment.comments}
             username={comment.addedBy.username}
             commentId={comment._id}
+            setIsContentUpdated={setIsContentUpdated}
           ></CommentCard>
         ))}
       </div>
