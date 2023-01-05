@@ -2,8 +2,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { API } from '../lib/api';
 
-import TextEditor from './common/TextEditor';
-
 export default function CreatePost() {
   const navigate = useNavigate();
   const [formFields, setFormFields] = useState({
@@ -20,6 +18,8 @@ export default function CreatePost() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const content = localStorage.getItem('content');
+    console.log(content);
     API.POST(API.ENDPOINTS.allPosts, formFields, API.getHeaders())
       .then(({ data }) => navigate(`/posts/${data._id}`))
       .catch((error) => console.error(error));
@@ -28,7 +28,7 @@ export default function CreatePost() {
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <label>Topic</label>
+        <label>Topic:</label>
         <input
           type='text'
           id='topic'
@@ -38,7 +38,7 @@ export default function CreatePost() {
         ></input>
       </div>
       <div>
-        <label>Content</label>
+        <label>Content:</label>
         <input
           type='text'
           id='content'
@@ -46,7 +46,6 @@ export default function CreatePost() {
           value={formFields.content}
           onChange={handleChange}
         ></input>
-        <TextEditor />
       </div>
       <button type='submit'>Submit</button>
     </form>
