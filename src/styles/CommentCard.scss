@@ -1,0 +1,29 @@
+.CommentCard {
+  width: 100%;
+  margin: 5px 0px 1px 1px;
+  .comment-header {
+    display: flex;
+    align-items: center;
+    .profile-picture {
+      background-color: blue;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+    }
+    p{
+      margin-left: 5px;
+      font-weight: bold;
+    }
+  }
+  p {
+    margin: 0px;
+    padding: 0px;
+  }
+  .comment-main {
+    border-left: 2px solid grey;
+    margin-left: 9px;
+    padding: 5px;
+  }
+  .CommentCard {
+  }
+}

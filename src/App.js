@@ -9,6 +9,7 @@ import Profile from './components/Profile';
 import Login from './components/Login';
 import Register from './components/Register';
 import PostsIndex from './components/PostsIndex';
+import CommentThread from './components/common/CommentThread'
 
 window.Buffer = window.Buffer || require('buffer').Buffer;
 
@@ -19,6 +20,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path='/' element={<Home />} />
+          <Route path='/commentdev' element={<CommentThread />} />
           <Route path='/posts' element={<PostsIndex />} />
           <Route path='/posts/create' element={<CreatePost />} />
           <Route path='/posts/:id' element={<SinglePost />} />
