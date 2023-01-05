@@ -37,9 +37,11 @@ export default function Register() {
         imageData
       );
 
+      const imageId = cloudinaryResponse.data.public_id;
+
       const apiReqBody = {
         ...formFields,
-        cloudinaryImageId: cloudinaryResponse.data.puclic_id
+        cloudinaryImageId: imageId
       };
 
       await API.POST(API.ENDPOINTS.register, apiReqBody);
