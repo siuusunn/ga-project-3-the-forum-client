@@ -13,7 +13,10 @@ export default function CommentThread({ comments, setIsContentUpdated }) {
             likes={comment.likes}
             dislikes={comment.dislikes}
             comments={comment.comments}
-            username={comment.addedBy.username}
+            username={comment.addedBy?.username}
+            isDeleted={comment.isDeleted}
+            deletedComments={comment.deletedComments}
+            parentCommentId={comment.parentCommentId}
             commentId={comment._id}
             setIsContentUpdated={setIsContentUpdated}
           ></CommentCard>
