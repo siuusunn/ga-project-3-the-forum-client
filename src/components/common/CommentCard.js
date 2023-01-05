@@ -1,3 +1,4 @@
+import { API } from '../../lib/api';
 import '../../styles/CommentCard.scss';
 
 export default function CommentCard({
@@ -5,8 +6,18 @@ export default function CommentCard({
   likes,
   dislikes,
   comments,
-  username
+  username,
+  commentId
 }) {
+  const handleDeleteComment = () => {
+    API.DELETE(API.ENDPOINTS.singleComment(commentId), API.getHeaders())
+      .then(({ data }) => {
+        console.log(data);
+        console.log('Deleted review');
+      })
+      .catch((err) => console.error(err));
+  };
+
   return (
     <div className='CommentCard'>
       <div className='comment-header'>
@@ -19,6 +30,7 @@ export default function CommentCard({
           <p>
             Likes: {likes}, Dislikes: {dislikes}
           </p>
+          <button onClick={handleDeleteComment}>Delete</button>
         </div>
         {comments?.map((comment) => {
           return (

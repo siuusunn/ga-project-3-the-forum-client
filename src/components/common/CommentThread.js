@@ -4,23 +4,23 @@ import CommentCard from './CommentCard';
 import { API } from '../../lib/api';
 import '../../styles/CommentThread.scss';
 
-export default function CommentThread() {
+export default function CommentThread({ comments }) {
   const [testPost, setTestPost] = useState(null);
   const { id } = useParams();
 
-  useEffect(() => {
-    API.GET(API.ENDPOINTS.singlePost('63b5ebdc8d0531975aea538a')).then(
-      ({ data }) => {
-        setTestPost(data);
-        console.log(data);
-      }
-    );
-  }, []);
+  // useEffect(() => {
+  //   API.GET(API.ENDPOINTS.singlePost('63b5ebdc8d0531975aea538a')).then(
+  //     ({ data }) => {
+  //       setTestPost(data);
+  //       console.log(data);
+  //     }
+  //   );
+  // }, []);
 
   return (
     <>
       <div className='CommentThread'>
-        {testPost?.comments.map((comment) => (
+        {comments?.map((comment) => (
           <CommentCard
             key={comment._id}
             className='CommentCard'
@@ -29,6 +29,7 @@ export default function CommentThread() {
             dislikes={comment.dislikes}
             comments={comment.comments}
             username={comment.addedBy.username}
+            commentId={comment._id}
           ></CommentCard>
         ))}
       </div>
