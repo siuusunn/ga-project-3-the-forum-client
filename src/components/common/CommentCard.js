@@ -74,6 +74,7 @@ export default function CommentCard({
               dislikes={comment.dislikes}
               comments={comment.comments}
               username={comment.addedBy.username}
+              commentId={comment._id}
               setIsContentUpdated={setIsContentUpdated}
             ></CommentCard>
           );
