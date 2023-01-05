@@ -18,8 +18,6 @@ export default function CreatePost() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const content = localStorage.getItem('content');
-    console.log(content);
     API.POST(API.ENDPOINTS.allPosts, formFields, API.getHeaders())
       .then(({ data }) => navigate(`/posts/${data._id}`))
       .catch((error) => console.error(error));
