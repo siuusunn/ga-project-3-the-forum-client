@@ -5,6 +5,8 @@ import CommentThread from './common/CommentThread';
 
 import { Container, Box } from '@mui/material';
 
+import '../styles/SinglePost.scss';
+
 export default function SinglePost() {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -12,6 +14,7 @@ export default function SinglePost() {
   const [newCommentFormFields, setNewCommentFormFields] = useState({
     text: ''
   });
+  const [newCommentSubmitted, setNewCommentSubmitted] = useState(false);
 
   useEffect(() => {
     API.GET(API.ENDPOINTS.singlePost(id))
@@ -21,7 +24,10 @@ export default function SinglePost() {
       .catch(({ message, response }) => {
         console.error(message, response);
       });
-  }, [id]);
+
+    setNewCommentSubmitted(false);
+    console.log(newCommentSubmitted);
+  }, [id, newCommentSubmitted]);
 
   const handleNewCommentChange = (event) => {
     setNewCommentFormFields({ [event.target.name]: event.target.value });
@@ -39,11 +45,14 @@ export default function SinglePost() {
         console.log(data);
       })
       .catch((err) => console.error(err));
+
+    setNewCommentSubmitted(true);
+    console.log(newCommentSubmitted);
   };
 
   return (
     <>
-      <Container>
+      <Container className='SinglePost'>
         <Box>
           <h1>{singlePost?.topic}</h1>
           <p>
@@ -54,20 +63,23 @@ export default function SinglePost() {
             Likes: {singlePost?.likes} | Dislikes: {singlePost?.dislikes}
           </p>
         </Box>
-        <form onSubmit={handleNewCommentSubmit}>
-          <div>
-            <label>Add a comment: </label>
-            <input
-              type='text'
-              id='text'
-              name='text'
-              value={newCommentFormFields.text}
-              onChange={handleNewCommentChange}
-            ></input>
-          </div>
-          <button type='submit'>Submit</button>
-        </form>
-        <CommentThread comments={singlePost?.comments} />
+        <div className='comments-container'>
+          <form onSubmit={handleNewCommentSubmit}>
+            <div>
+              <h3>Comments</h3>
+              <label htmlFor='comment-text'>Add a comment: </label>
+              <input
+                type='text'
+                id='comment-text'
+                name='text'
+                value={newCommentFormFields.text}
+                onChange={handleNewCommentChange}
+              ></input>
+            </div>
+            <button type='submit'>Submit</button>
+          </form>
+          <CommentThread comments={singlePost?.comments} />
+        </div>
       </Container>
     </>
   );

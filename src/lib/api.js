@@ -5,7 +5,7 @@ const ENDPOINTS = {
   allPosts: '/api/posts',
   singlePost: (id) => `/api/posts/${id}`,
   commentsForPost: (id) => `/api/posts/${id}/comments`,
-  singleComment: (id, commentId) => `/api/posts/${id}/comments/${commentId}`,
+  singleComment: (commentId) => `/api/comments/${commentId}`,
   singleUser: (id) => `/api/users/${id}`,
   login: `/api/login`,
   register: `/api/register`
