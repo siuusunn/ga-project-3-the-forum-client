@@ -10,7 +10,7 @@
       width: 20px;
       height: 20px;
     }
-    p{
+    p {
       margin-left: 5px;
       font-weight: bold;
     }
@@ -23,6 +23,17 @@
     border-left: 2px solid grey;
     margin-left: 9px;
     padding: 5px;
+    .comment-actions {
+      margin: 3px 0px;
+      display: flex;
+      flex-direction: row;
+      button {
+        margin-right: 6px;
+      }
+      input {
+        margin-right: 2px;
+      }
+    }
   }
   .CommentCard {
   }
