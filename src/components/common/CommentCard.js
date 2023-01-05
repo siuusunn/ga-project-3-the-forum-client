@@ -5,13 +5,13 @@ export default function CommentCard({
   likes,
   dislikes,
   comments,
-  addedBy
+  username
 }) {
   return (
     <div className='CommentCard'>
       <div className='comment-header'>
         <div className='profile-picture'></div>
-        <p>{addedBy}</p>
+        <p>{username}</p>
       </div>
       <div className='comment-main'>
         <div className='comment-content'>
@@ -20,16 +20,18 @@ export default function CommentCard({
             Likes: {likes}, Dislikes: {dislikes}
           </p>
         </div>
-        {comments?.map((comment) => (
-          <CommentCard
-            key={comment._id}
-            text={comment.text}
-            likes={comment.likes}
-            dislikes={comment.dislikes}
-            comments={comment.comments}
-            addedBy={comment.addedBy}
-          ></CommentCard>
-        ))}
+        {comments?.map((comment) => {
+          return (
+            <CommentCard
+              key={comment._id}
+              text={comment.text}
+              likes={comment.likes}
+              dislikes={comment.dislikes}
+              comments={comment.comments}
+              username={comment.addedBy.username}
+            ></CommentCard>
+          );
+        })}
       </div>
     </div>
   );

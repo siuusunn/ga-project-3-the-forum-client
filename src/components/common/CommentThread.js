@@ -28,7 +28,7 @@ export default function CommentThread() {
             likes={comment.likes}
             dislikes={comment.dislikes}
             comments={comment.comments}
-            addedBy={comment.addedBy}
+            username={comment.addedBy.username}
           ></CommentCard>
         ))}
       </div>
