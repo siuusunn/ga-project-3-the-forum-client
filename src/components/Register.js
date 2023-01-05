@@ -25,14 +25,12 @@ export default function Register() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     const imageData = new FormData();
     imageData.append('file', file);
     imageData.append(
       'upload_preset',
       process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET
     );
-
     try {
       const cloudinaryResponse = await API.POST(
         API.ENDPOINTS.cloudinary,
