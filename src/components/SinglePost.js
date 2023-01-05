@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { API } from '../lib/api';
+import CommentThread from './common/CommentThread';
 
 import { Container, Box } from '@mui/material';
 
@@ -25,13 +26,14 @@ export default function SinglePost() {
         <Box>
           <h1>{singlePost?.topic}</h1>
           <p>
-            Posted by: {singlePost?.addedBy} on {singlePost?.timestamp}
+            Posted by: {singlePost?.addedBy.username} on {singlePost?.timestamp}
           </p>
           <p>{singlePost?.content}</p>
           <p>
             Likes: {singlePost?.likes} | Dislikes: {singlePost?.dislikes}
           </p>
         </Box>
+        <CommentThread comments={singlePost?.comments}/>
       </Container>
     </>
   );
