@@ -12,15 +12,39 @@ export default function Register() {
     password: '',
     passwordConfirmation: ''
   });
+  const [file, setFile] = useState('');
 
   const handleChange = (event) => {
     setFormFields({ ...formFields, [event.target.name]: event.target.value });
   };
 
+  const handleFileChange = (event) => {
+    event.preventDefault();
+    setFile(event.target.files[0]);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    const imageData = new FormData();
+    imageData.append('file', file);
+    imageData.append(
+      'upload_preset',
+      process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET
+    );
+
     try {
-      await API.POST(API.ENDPOINTS.register, formFields);
+      const cloudinaryResponse = await API.POST(
+        API.ENDPOINTS.cloudinary,
+        imageData
+      );
+
+      const apiReqBody = {
+        ...formFields,
+        cloudinaryImageId: cloudinaryResponse.data.puclic_id
+      };
+
+      await API.POST(API.ENDPOINTS.register, apiReqBody);
 
       const loginData = await API.POST(API.ENDPOINTS.login, {
         email: formFields.email,
@@ -79,6 +103,15 @@ export default function Register() {
               name='passwordConfirmation'
               value={formFields.passwordConfirmation}
               onChange={handleChange}
+            ></input>
+          </div>
+          <div>
+            <label htmlFor='profilePicture'>Profile Picture:</label>
+            <input
+              type='file'
+              id='profile-picture'
+              name='profile-picture'
+              onChange={handleFileChange}
             ></input>
           </div>
 

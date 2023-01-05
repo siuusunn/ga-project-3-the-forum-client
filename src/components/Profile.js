@@ -5,6 +5,8 @@ import { AUTH } from '../lib/auth';
 
 import { Container } from '@mui/material';
 
+import ProfilePicture from './common/ProfilePicture';
+
 export default function Profile() {
   const navigate = useNavigate();
   const { id } = useParams();
