@@ -55,8 +55,9 @@ export default function SinglePost() {
       <Container className='SinglePost'>
         <Box>
           <h1>{singlePost?.topic}</h1>
-          <p>Posted by: {singlePost?.addedBy.username}</p>
-          <p>Posted on {singlePost?.createdAt}</p>
+          <p>
+            Posted by: {singlePost?.addedBy.username} on <i>{`${humanDate}`}</i>
+          </p>
           <p>{singlePost?.content}</p>
           <p>
             Likes: {singlePost?.likes} | Dislikes: {singlePost?.dislikes}
