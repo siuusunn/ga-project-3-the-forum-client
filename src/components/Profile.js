@@ -30,12 +30,15 @@ export default function Profile() {
 
   console.log(userData);
 
+  const humanDate = new Date(userData?.createdAt);
+
   return (
     <>
       <Container>
         <h1>User Profile</h1>
         <ProfilePicture cloudinaryImageId={userData?.cloudinaryImageId} />
         <p>Username: {userData?.username}</p>
+        <p>Joined on: {`${humanDate}`}</p>
         <p>User ID: {userData?._id}</p>
       </Container>
     </>
