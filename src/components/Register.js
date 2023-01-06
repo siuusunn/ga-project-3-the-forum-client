@@ -4,16 +4,7 @@ import { AUTH } from '../lib/auth';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Register.scss';
 
-import {
-  Container,
-  Box,
-  Input,
-  InputLabel,
-  TextField,
-  FormControl,
-  InputAdornment,
-  Button
-} from '@mui/material';
+import { Container, Box, TextField, Button } from '@mui/material';
 
 import {
   AccountCircleOutlined,
