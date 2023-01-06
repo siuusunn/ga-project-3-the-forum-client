@@ -89,6 +89,8 @@ export default function CommentCard({
               <ProfilePicture
                 className='profile-picture'
                 cloudinaryImageId={cloudinaryImageId}
+                imageWidth={30}
+                imageHeight={30}
               />
             ) : (
               <img src={blankPic} alt='blank profile picture' />
