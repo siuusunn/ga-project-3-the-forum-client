@@ -1,31 +1,31 @@
-import { useState, useEffect } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
-import { API } from "../lib/api";
-import CommentThread from "./common/CommentThread";
-import LikeButton from "./LikeButton";
+import { useState, useEffect } from 'react';
+import { useParams, useNavigate, Link } from 'react-router-dom';
+import { API } from '../lib/api';
+import CommentThread from './common/CommentThread';
+import { PostLikes } from './common/PostLikes';
 
-import { Container, Box } from "@mui/material";
+import { Container, Box } from '@mui/material';
 
-import "../styles/SinglePost.scss";
+import '../styles/SinglePost.scss';
 
 export const SinglePost = () => {
   const [singlePost, setSinglePost] = useState(null);
   const [newCommentFormFields, setNewCommentFormFields] = useState({
-    text: "",
+    text: ''
   });
   const [isContentUpdated, setIsContentUpdated] = useState(false);
   const { id } = useParams();
 
   useEffect(() => {
-    if (id === null) return;
-    API.GET(API.ENDPOINTS.singlePost(id))
-      .then(({ data }) => {
-        setSinglePost(data);
-      })
-      .catch(({ message, response }) => {
-        console.error(message, response);
-      });
-
+    if (id) {
+      API.GET(API.ENDPOINTS.singlePost(id))
+        .then(({ data }) => {
+          setSinglePost(data);
+        })
+        .catch(({ message, response }) => {
+          console.error(message, response);
+        });
+    }
     setIsContentUpdated(false);
     console.log(isContentUpdated);
   }, [id, isContentUpdated]);
@@ -49,35 +49,42 @@ export const SinglePost = () => {
       .catch((err) => console.error(err));
   };
 
-  const humanDate = new Date(singlePost?.createdAt);
+  const humanDate = new Date(singlePost?.createdAt).toLocaleString();
 
   return (
     <>
-      <Container className="SinglePost">
+      <Container className='SinglePost'>
         <Box>
           <h1>{singlePost?.topic}</h1>
           <p>
             Posted by: {singlePost?.addedBy.username} on <i>{`${humanDate}`}</i>
           </p>
           <p>{singlePost?.content}</p>
-          <p>
-            Likes: {singlePost?.likes} | Dislikes: {singlePost?.dislikes}
-          </p>
+          <div className='likes-container-outer'>
+            <div className='likes-container-inner'>
+              <PostLikes
+                storedLikes={singlePost?.likes}
+                storedDislikes={singlePost?.dislikes}
+                id={id}
+                setIsContentUpdated={setIsContentUpdated}
+              />
+            </div>
+          </div>
         </Box>
-        <div className="comments-container">
+        <div className='comments-container'>
           <form onSubmit={handleNewCommentSubmit}>
             <div>
               <h3>Comments</h3>
-              <label htmlFor="comment-text">Add a comment: </label>
+              <label htmlFor='comment-text'>Add a comment: </label>
               <input
-                type="text"
-                id="comment-text"
-                name="text"
+                type='text'
+                id='comment-text'
+                name='text'
                 value={newCommentFormFields.text}
                 onChange={handleNewCommentChange}
               ></input>
             </div>
-            <button type="submit">Submit</button>
+            <button type='submit'>Submit</button>
           </form>
 
           <CommentThread
