@@ -102,42 +102,39 @@ export default function CommentCard({
               <p>posted on:</p>
               <p className='timestamp'>{`${timestamp}`}</p>
             </>
+          )}{' '}
+          {isDeleted && (
+            <p className='comment-deleted-text'>(comment deleted)</p>
           )}
         </div>
-        <div
-          className={`${isDeleted ? 'comment-main deleted' : 'comment-main'}`}
-        >
-          <div className='comment-content'>
-            {!isDeleted ? (
+        <div className='comment-main'>
+          {!isDeleted && (
+            <div className='comment-content'>
               <p className='comment-text'>{text}</p>
-            ) : (
-              <p>
-                <em>(comment deleted)</em>
-              </p>
-            )}
-            {username && (
-              <p>
-                Likes: {likes}, Dislikes: {dislikes}
-              </p>
-            )}
-            {username && (
-              <div className='comment-actions'>
-                <button onClick={handleDeleteComment}>Delete</button>
-                <form onSubmit={handleReplySubmit}>
-                  <label htmlFor='comment-text'> Reply: </label>
-                  <input
-                    ref={formInput}
-                    type='text'
-                    id='comment-text'
-                    name='text'
-                    value={newReplyFormFields.text}
-                    onChange={handleNewReplyChange}
-                  ></input>
-                  <button type='submit'>Post reply</button>
-                </form>
-              </div>
-            )}
-          </div>
+              {username && (
+                <p>
+                  Likes: {likes}, Dislikes: {dislikes}
+                </p>
+              )}
+              {username && (
+                <div className='comment-actions'>
+                  <button onClick={handleDeleteComment}>Delete</button>
+                  <form onSubmit={handleReplySubmit}>
+                    <label htmlFor='comment-text'> Reply: </label>
+                    <input
+                      ref={formInput}
+                      type='text'
+                      id='comment-text'
+                      name='text'
+                      value={newReplyFormFields.text}
+                      onChange={handleNewReplyChange}
+                    ></input>
+                    <button type='submit'>Post reply</button>
+                  </form>
+                </div>
+              )}
+            </div>
+          )}
           {comments?.map((comment) => {
             return (
               <CommentCard
