@@ -96,7 +96,9 @@ export default function CommentCard({
           </div>
           {username && (
             <>
-              <p className='username'>{username}</p>
+              <Link to={`/profile/${userId}`}>
+                <p className='username'>{username}</p>
+              </Link>
               <p>posted on:</p>
               <p className='timestamp'>{`${timestamp}`}</p>
             </>
