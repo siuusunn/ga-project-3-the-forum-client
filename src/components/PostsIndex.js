@@ -1,17 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import { ReactNotifications } from "react-notifications-component";
 
 import { NOTIFY } from "../lib/notifications";
-import { API } from '../lib/api';
+import { API } from "../lib/api";
 import { DisplayPost } from "./DisplayPost";
 
-import { PostLikes } from './common/PostLikes';
-import { SinglePost } from './SinglePost';
-import { DisplayAllPosts } from './DisplayAllPosts';
+import { PostLikes } from "./common/PostLikes";
+import { SinglePost } from "./SinglePost";
+import { DisplayAllPosts } from "./DisplayAllPosts";
 
-import { Grid, Paper, Box, styled } from '@mui/material';
+import { Grid, Paper, Box, styled } from "@mui/material";
 
-import '../styles/PostsIndex.scss';
+import "../styles/PostsIndex.scss";
 
 export default function PostsIndex() {
   const [posts, setPosts] = useState(null);
@@ -37,32 +37,31 @@ export default function PostsIndex() {
   };
 
   const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : 'lightYellow',
+    backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "lightYellow",
     ...theme.typography.body2,
     padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary
+    textAlign: "center",
+    color: theme.palette.text.secondary,
   }));
 
   return (
     <Box
-      className='PostsIndex'
-      sx={{ width: '100%', display: 'flex', flexDirection: 'row' }}
+      className="PostsIndex"
+      sx={{ width: "100%", display: "flex", flexDirection: "row" }}
     >
-      <div className='grid-left'>
+      <div className="grid-left">
         {posts?.map((post) => (
           <DisplayAllPosts key={post._id} post={post} selectedId={selectedId} />
         ))}
       </div>
       <Grid
-        className='grid-right'
+        className="grid-right"
         container
         spacing={4}
         columns={1}
-        sx={{ marginLeft: '12px', marginTop: '20px', width: '50%' }}
+        sx={{ marginLeft: "12px", marginTop: "20px", width: "50%" }}
       >
-        {id && <SinglePost id={id}></SinglePost>}
-
+        {id && <DisplayPost id={id}></DisplayPost>}
       </Grid>
     </Box>
   );
