@@ -1,4 +1,10 @@
-import { Sidebar, Menu, MenuItem, useProSidebar } from 'react-pro-sidebar';
+import {
+  Sidebar,
+  Menu,
+  MenuItem,
+  useProSidebar,
+  SubMenu
+} from 'react-pro-sidebar';
 import { useAuthenticated } from '../hooks/useAuthenticated';
 
 import {
@@ -9,7 +15,11 @@ import {
   LibraryBooksOutlined,
   HowToRegOutlined,
   LogoutOutlined,
-  AccountCircleOutlined
+  AccountCircleOutlined,
+  InfoOutlined,
+  Add,
+  GitHub,
+  LinkedIn
 } from '@mui/icons-material';
 
 import { Link, useNavigate } from 'react-router-dom';
@@ -87,6 +97,68 @@ export default function Navbar() {
             </MenuItem>
           </>
         )}
+        <SubMenu label='Dev Info' icon={<InfoOutlined />}>
+          <SubMenu label='siuusunn' icon={<Add />}>
+            <MenuItem icon={<GitHub />}>
+              <a
+                href='https://github.com/siuusunn/'
+                target='_blank'
+                rel='noreferrer'
+              >
+                Github
+              </a>
+            </MenuItem>
+            <MenuItem icon={<LinkedIn />}>
+              <a
+                href='https://www.linkedin.com/in/alice-lo-09921896/'
+                target='_blank'
+                rel='noreferrer'
+              >
+                LinkedIn
+              </a>
+            </MenuItem>
+          </SubMenu>
+          <SubMenu label='ljsgrant' icon={<Add />}>
+            <MenuItem icon={<GitHub />}>
+              <a
+                href='https://github.com/ljsgrant/'
+                target='_blank'
+                rel='noreferrer'
+              >
+                Github
+              </a>
+            </MenuItem>
+            <MenuItem icon={<LinkedIn />}>
+              <a
+                href='https://www.linkedin.com/in/louisgrant/'
+                target='_blank'
+                rel='noreferrer'
+              >
+                LinkedIn
+              </a>
+            </MenuItem>
+          </SubMenu>
+          <SubMenu label='ParulSingh16' icon={<Add />}>
+            <MenuItem icon={<GitHub />}>
+              <a
+                href='https://github.com/ParulSingh16/'
+                target='_blank'
+                rel='noreferrer'
+              >
+                Github
+              </a>
+            </MenuItem>
+            <MenuItem icon={<LinkedIn />}>
+              <a
+                href='https://www.linkedin.com/in/parul-singh-b330b5204/'
+                target='_blank'
+                rel='noreferrer'
+              >
+                LinkedIn
+              </a>
+            </MenuItem>
+          </SubMenu>
+        </SubMenu>
       </Menu>
     </Sidebar>
   );

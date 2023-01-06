@@ -1,9 +1,15 @@
 import { useEffect, useState } from 'react';
+import { ReactNotifications } from "react-notifications-component";
+
+import { NOTIFY } from "../lib/notifications";
 import { API } from '../lib/api';
-import { Grid, Paper, Box, styled } from '@mui/material';
+import { DisplayPost } from "./DisplayPost";
+
 import { PostLikes } from './common/PostLikes';
 import { SinglePost } from './SinglePost';
 import { DisplayAllPosts } from './DisplayAllPosts';
+
+import { Grid, Paper, Box, styled } from '@mui/material';
 
 import '../styles/PostsIndex.scss';
 
@@ -14,10 +20,12 @@ export default function PostsIndex() {
   useEffect(() => {
     API.GET(API.ENDPOINTS.allPosts)
       .then(({ data }) => {
+        NOTIFY.SUCCESS(`got a post ${data.length} from a user!`);
         setPosts(data);
         console.log(data);
       })
       .catch(({ message, response }) => {
+        NOTIFY.ERROR(message);
         console.error(message, response);
       });
   }, []);
@@ -54,6 +62,7 @@ export default function PostsIndex() {
         sx={{ marginLeft: '12px', marginTop: '20px', width: '50%' }}
       >
         {id && <SinglePost id={id}></SinglePost>}
+
       </Grid>
     </Box>
   );
