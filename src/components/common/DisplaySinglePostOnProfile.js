@@ -8,8 +8,15 @@ import {
   CardContent,
   Button,
   Typography,
-  Box
+  Box,
+  ListItem,
+  ListItemText,
+  Divider,
+  ListItemAvatar,
+  Avatar
 } from '@mui/material';
+
+import { SubjectOutlined } from '@mui/icons-material';
 
 export default function PostCard({ postId }) {
   const navigate = useNavigate();
@@ -28,24 +35,26 @@ export default function PostCard({ postId }) {
 
   // console.log(postData);
 
+  const humanDate = new Date(postData?.createdAt).toLocaleDateString();
+
   return (
     <>
-      <Box sx={{ minWidth: 150, maxWidth: 600 }}>
-        <Card sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-          <CardContent>
-            <Typography variant='h7' component='div'>
-              {postData.topic}
-            </Typography>
-            <Typography variant='body2' color='text.secondary'>
-              {postData.content}
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <Button size='small' onClick={handleClick}>
-              Go to Post
-            </Button>
-          </CardActions>
-        </Card>
+      <Box sx={{ minWidth: 200, maxWidth: 600, width: 600 }}>
+        <ListItem>
+          <ListItemAvatar>
+            <Avatar>
+              <SubjectOutlined />
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText
+            primary={postData.topic}
+            secondary={humanDate}
+          ></ListItemText>
+          <Button size='small' onClick={handleClick} variant='contained'>
+            Go to Post
+          </Button>
+        </ListItem>
+        <Divider variant='inset' />
       </Box>
     </>
   );
