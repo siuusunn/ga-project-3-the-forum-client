@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { NOTIFY } from "../lib/notifications";
 import { API } from "../lib/api";
 import { Grid, Paper, Box, styled } from "@mui/material";
 import { PostLikes } from "./common/PostLikes";
@@ -14,10 +15,12 @@ export default function PostsIndex() {
   useEffect(() => {
     API.GET(API.ENDPOINTS.allPosts)
       .then(({ data }) => {
+        NOTIFY.SUCCESS(`got a post ${data.length} from a user!`);
         setPosts(data);
         console.log(data);
       })
       .catch(({ message, response }) => {
+        NOTIFY.ERROR(message);
         console.error(message, response);
       });
   }, []);

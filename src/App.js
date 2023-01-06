@@ -1,5 +1,6 @@
 import "./styles/App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
@@ -10,6 +11,8 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import PostsIndex from "./components/PostsIndex";
 import CommentThread from "./components/common/CommentThread";
+
+import "react-toastify/dist/ReactToastify.css";
 
 window.Buffer = window.Buffer || require("buffer").Buffer;
 
@@ -29,6 +32,7 @@ function App() {
           <Route path="/register" element={<Register />} />
         </Routes>
       </Router>
+      <ToastContainer />
     </div>
   );
 }
