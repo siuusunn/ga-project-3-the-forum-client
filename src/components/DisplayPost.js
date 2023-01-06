@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { API } from "../lib/api";
 import CommentThread from "./common/CommentThread";
-import LikeButton from "./LikeButton";
 
 import { Container, Box } from "@mui/material";
 
