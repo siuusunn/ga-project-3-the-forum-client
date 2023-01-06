@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { API } from "../lib/api";
 import { Grid, Paper, Box, styled } from "@mui/material";
 import { PostLikes } from "./common/PostLikes";
+import { ReactNotifications } from "react-notifications-component";
 import { SinglePost } from "./SinglePost";
-import { DisplayPosts } from "./DisplayPosts";
+import { DisplayAllPosts } from "./DisplayAllPosts";
+import { DisplayPost } from "./DisplayPost";
 
 export default function PostsIndex() {
   const [posts, setPosts] = useState(null);
@@ -42,7 +44,7 @@ export default function PostsIndex() {
         sx={{ marginLeft: "12px", marginTop: "20px", width: "50%" }}
       >
         {posts?.map((post) => (
-          <DisplayPosts post={post} selectedId={selectedId} />
+          <DisplayAllPosts post={post} selectedId={selectedId} />
         ))}
       </Grid>
       <Grid
@@ -51,7 +53,7 @@ export default function PostsIndex() {
         columns={1}
         sx={{ marginLeft: "12px", marginTop: "20px", width: "50%" }}
       >
-        <SinglePost id={id}></SinglePost>
+        <DisplayPost id={id}></DisplayPost>
       </Grid>
     </Box>
   );
