@@ -1,15 +1,15 @@
 import './styles/App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import Navbar from './components/Navbar';
-import Home from './components/Home';
-import CreatePost from './components/CreatePost';
-// import SinglePost from './components/SinglePost';
-import Profile from './components/Profile';
-import Login from './components/Login';
-import Register from './components/Register';
-import PostsIndex from './components/PostsIndex';
-import CommentThread from './components/common/CommentThread';
+import Navbar from "./components/Navbar";
+import Home from "./components/Home";
+import CreatePost from "./components/CreatePost";
+import { SinglePost } from "./components/SinglePost";
+import Profile from "./components/Profile";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import PostsIndex from "./components/PostsIndex";
+import CommentThread from "./components/common/CommentThread";
 
 window.Buffer = window.Buffer || require('buffer').Buffer;
 
@@ -19,14 +19,14 @@ function App() {
       <Router>
         <Navbar />
         <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/commentdev' element={<CommentThread />} />
-          <Route path='/posts' element={<PostsIndex />} />
-          <Route path='/posts/create' element={<CreatePost />} />
-          {/* <Route path='/posts/:id' element={<SinglePost />} /> */}
-          <Route path='/profile/:id' element={<Profile />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/register' element={<Register />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/commentdev" element={<CommentThread />} />
+          <Route path="/posts" element={<PostsIndex />} />
+          <Route path="/posts/create" element={<CreatePost />} />
+          <Route path="/posts/:id" element={<SinglePost />} />
+          <Route path="/profile/:id" element={<Profile />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </Router>
     </div>

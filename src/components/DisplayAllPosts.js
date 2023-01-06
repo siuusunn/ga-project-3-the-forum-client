@@ -4,7 +4,7 @@ import { Grid, Paper, Box, styled } from "@mui/material";
 import { PostLikes } from "./common/PostLikes";
 import { SinglePost } from "./SinglePost";
 
-export const DisplayPosts = ({ post, selectedId }) => {
+export const DisplayAllPosts = ({ post, selectedId }) => {
   const handleClick = () => {
     selectedId(post._id);
   };
