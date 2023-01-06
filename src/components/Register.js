@@ -81,79 +81,149 @@ export default function Register() {
 
   return (
     <>
-      <Container>
-        <h1>Register</h1>
-        <form onSubmit={handleSubmit}>
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'flex-end'
-            }}
-          >
-            <AccountCircleOutlined
-              sx={{ color: 'action.active', mr: 1, my: 0.5 }}
-            />
-            <TextField
-              id='username'
-              name='username'
-              label='Username'
-              type='text'
-              variant='standard'
-              onChange={handleChange}
-              required
-            />
-          </Box>
-          <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-            <EmailOutlined sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
-            <TextField
-              id='email'
-              name='email'
-              label='Email'
-              type='email'
-              variant='standard'
-              onChange={handleChange}
-              required
-            />
-          </Box>
-          <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-            <PasswordOutlined sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
-            <TextField
-              id='password'
-              name='password'
-              label='Password'
-              type='password'
-              variant='standard'
-              onChange={handleChange}
-              required
-            />
-          </Box>
-          <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-            <PasswordOutlined sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
-            <TextField
-              id='passwordConfirmation'
-              name='passwordConfirmation'
-              label='Password Confirmation'
-              type='password'
-              variant='standard'
-              onChange={handleChange}
-              required
-            />
-          </Box>
-          <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-            <FileUploadOutlined
-              sx={{ color: 'action.active', mr: 1, my: 0.5 }}
-            />
-            <TextField
-              id='profile-picture'
-              name='profile-picture'
-              type='file'
-              variant='standard'
-              onChange={handleFileChange}
-              required
-            />
-          </Box>
-          <Button type='submit'>Sign Up</Button>
-        </form>
+      <Container
+        maxWidth='sm'
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          mt: 5
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center'
+          }}
+        >
+          <h1>Register</h1>
+          <form onSubmit={handleSubmit}>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'flex-end',
+                justifyContent: 'center',
+                mt: 2
+              }}
+            >
+              <AccountCircleOutlined
+                sx={{ color: 'action.active', mr: 1, my: 0.5 }}
+              />
+              <TextField
+                fullWidth
+                id='username'
+                name='username'
+                label='Username'
+                type='text'
+                variant='standard'
+                onChange={handleChange}
+                required
+              />
+            </Box>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'flex-end',
+                justifyContent: 'center'
+              }}
+            >
+              <EmailOutlined sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
+              <TextField
+                fullWidth
+                id='email'
+                name='email'
+                label='Email'
+                type='email'
+                variant='standard'
+                onChange={handleChange}
+                required
+              />
+            </Box>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'flex-end',
+                justifyContent: 'center'
+              }}
+            >
+              <PasswordOutlined
+                sx={{ color: 'action.active', mr: 1, my: 0.5 }}
+              />
+              <TextField
+                fullWidth
+                id='password'
+                name='password'
+                label='Password'
+                type='password'
+                variant='standard'
+                onChange={handleChange}
+                required
+              />
+            </Box>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'flex-end',
+                justifyContent: 'center'
+              }}
+            >
+              <PasswordOutlined
+                sx={{ color: 'action.active', mr: 1, my: 0.5 }}
+              />
+              <TextField
+                fullWidth
+                id='passwordConfirmation'
+                name='passwordConfirmation'
+                label='Password Confirmation'
+                type='password'
+                variant='standard'
+                onChange={handleChange}
+                required
+              />
+            </Box>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexDirection: 'column'
+              }}
+            >
+              <h4>Upload a Profile Picture:</h4>
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'flex-end',
+                  justifyContent: 'center'
+                }}
+              >
+                <FileUploadOutlined
+                  sx={{ color: 'action.active', mr: 1, my: 0.5 }}
+                />
+                <TextField
+                  id='profile-picture'
+                  name='profile-picture'
+                  type='file'
+                  variant='standard'
+                  onChange={handleFileChange}
+                  required
+                />
+              </Box>
+            </Box>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'flex-end',
+                justifyContent: 'center'
+              }}
+            >
+              <Button type='submit' variant='contained' sx={{ mt: 5 }}>
+                Sign Up
+              </Button>
+            </Box>
+          </form>
+        </Box>
       </Container>
     </>
   );
