@@ -3,8 +3,13 @@ import { API } from '../lib/api';
 import { AUTH } from '../lib/auth';
 import { useNavigate } from 'react-router-dom';
 
-import { Container, Box, TextField, Button } from '@mui/material';
-import { EmailOutlined, PasswordOutlined } from '@mui/icons-material';
+import { Container, Box, TextField, Button, IconButton } from '@mui/material';
+import {
+  EmailOutlined,
+  PasswordOutlined,
+  VisibilityOutlined,
+  VisibilityOffOutlined
+} from '@mui/icons-material';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -12,6 +17,13 @@ export default function Login() {
     email: '',
     password: ''
   });
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -86,11 +98,24 @@ export default function Login() {
                 id='password'
                 name='password'
                 label='Password'
-                type='password'
+                type={showPassword ? 'test' : 'password'}
                 variant='standard'
                 onChange={handleChange}
                 required
               />
+
+              <IconButton
+                aria-label='toggle-password-visibility'
+                onClick={handleClickShowPassword}
+                onMouseDown={handleMouseDownPassword}
+                edge='end'
+              >
+                {showPassword ? (
+                  <VisibilityOffOutlined />
+                ) : (
+                  <VisibilityOutlined />
+                )}
+              </IconButton>
             </Box>
             <Box
               sx={{
