@@ -5,6 +5,7 @@ import { AUTH } from '../lib/auth';
 
 import { Container } from '@mui/material';
 
+import DisplaySinglePostOnProfile from '../components/common/DisplaySinglePostOnProfile';
 import ProfilePicture from './common/ProfilePicture';
 
 export default function Profile() {
@@ -28,9 +29,10 @@ export default function Profile() {
       });
   }, [id]);
 
-  console.log(userData);
+  const userPosts = userData?.posts;
+  console.log(userPosts);
 
-  const humanDate = new Date(userData?.createdAt);
+  const humanDate = new Date(userData?.createdAt).toLocaleDateString();
 
   return (
     <>
@@ -40,6 +42,10 @@ export default function Profile() {
         <p>Username: {userData?.username}</p>
         <p>Joined on: {`${humanDate}`}</p>
         <p>User ID: {userData?._id}</p>
+        <p>Posts:</p>
+        {userPosts?.map((post) => (
+          <DisplaySinglePostOnProfile postId={post} key={post} />
+        ))}
       </Container>
     </>
   );
