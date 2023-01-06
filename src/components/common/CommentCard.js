@@ -1,6 +1,9 @@
-import { useState, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { API } from '../../lib/api';
+import ProfilePicture from './ProfilePicture';
 import '../../styles/CommentCard.scss';
+import blankPic from '../../assets/placeholder-profile-picture.png';
 
 export default function CommentCard({
   text,
@@ -12,14 +15,26 @@ export default function CommentCard({
   isDeleted,
   deletedComments,
   setIsContentUpdated,
+  userId,
   parentCommentId
 }) {
   const formInput = useRef(null);
   const [newReplyFormFields, setNewReplyFormFields] = useState({
     text: ''
   });
+  const [cloudinaryImageId, setCloudinaryImageId] = useState(null);
 
-  console.log(comments);
+  useEffect(() => {
+    if (userId) {
+      API.GET(API.ENDPOINTS.singleUser(userId))
+        .then(({ data }) => {
+          setCloudinaryImageId(data.cloudinaryImageId);
+        })
+        .catch(({ message, response }) => {
+          console.error(message, response);
+        });
+    }
+  }, [userId]);
 
   const handleNewReplyChange = (event) => {
     setNewReplyFormFields({ [event.target.name]: event.target.value });
@@ -66,17 +81,22 @@ export default function CommentCard({
     return (
       <div className='CommentCard'>
         <div className='comment-header'>
-          {username ? (
-            <div className='profile-picture'></div>
-          ) : (
-            <div className='profile-picture'></div>
-          )}
-          <p>{username}</p>
+          <div className='profile-picture-container'>
+            {cloudinaryImageId ? (
+              <ProfilePicture
+                className='profile-picture'
+                cloudinaryImageId={cloudinaryImageId}
+              />
+            ) : (
+              <img src={blankPic} alt='blank profile picture' />
+            )}
+          </div>
+          {username && <p>{username}</p>}
         </div>
         <div className='comment-main'>
           <div className='comment-content'>
             {!isDeleted ? (
-              <p>{text}</p>
+              <p className='comment-text'>{text}</p>
             ) : (
               <p>
                 <em>This comment has been deleted.</em>
@@ -114,6 +134,7 @@ export default function CommentCard({
                 dislikes={comment.dislikes}
                 comments={comment.comments}
                 username={comment.addedBy?.username}
+                userId={comment.addedBy?._id}
                 isDeleted={comment.isDeleted}
                 deletedComments={comment.deletedComments}
                 commentId={comment._id}
