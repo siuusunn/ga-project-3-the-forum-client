@@ -31,6 +31,8 @@ export default function Profile() {
 
   const userPosts = userData?.posts;
 
+  console.log(userPosts);
+
   const humanDate = new Date(userData?.createdAt).toLocaleDateString();
 
   return (
@@ -66,9 +68,13 @@ export default function Profile() {
         >
           <h3>Posts by user:</h3>
           <List>
-            {userPosts?.map((post) => (
-              <DisplaySinglePostOnProfile postId={post} key={post} />
-            ))}
+            {userPosts?.length === 0 ? (
+              <p>{userData?.username} has not posted anything yet</p>
+            ) : (
+              userPosts?.map((post) => (
+                <DisplaySinglePostOnProfile postId={post} key={post} />
+              ))
+            )}
           </List>
         </Box>
       </Container>
