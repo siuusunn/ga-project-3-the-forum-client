@@ -4,15 +4,28 @@
   .comment-header {
     display: flex;
     align-items: center;
-    .profile-picture {
-      background-color: blue;
+    .profile-picture-container {
       border-radius: 50%;
-      width: 20px;
-      height: 20px;
+      border: 2px solid lightgray;
+      background-color: lightgray;
+      width: 30px;
+      height: 30px;
+      img {
+        width: 100%;
+        border-radius: 50%;
+      }
     }
-    p {
+    .username {
       margin-left: 5px;
+      margin-right: 5px;
       font-weight: bold;
+    }
+    .timestamp{
+      margin-left: 5px;
+    }
+    .comment-deleted-text{
+      margin-left: 5px;
+      font-style: italic;
     }
   }
   p {
@@ -20,9 +33,20 @@
     padding: 0px;
   }
   .comment-main {
-    border-left: 2px solid grey;
-    margin-left: 9px;
+    font-size: 15px;
+    border-left: 2px solid lightgray;
+    margin-left: 15px;
+    margin-top: -10px;
     padding: 5px;
+    .comment-content{
+      margin-left: 20px;
+      margin-bottom: 20px;
+      .comment-text{
+        background-color: rgb(244, 244, 244);
+        padding: 5px;
+        border-radius: 5px;
+      }
+    }
     .comment-actions {
       margin: 3px 0px;
       display: flex;
@@ -35,6 +59,16 @@
       }
     }
   }
-  .CommentCard {
+  .deleted{
+    margin-bottom: -30px;
   }
+
+  // &:hover {
+  //   .profile-picture-container {
+  //     border: 2px solid rgb(86, 213, 255);
+  //   }
+  //   .comment-main {
+  //     border-left: 2px solid rgb(86, 213, 255);
+  //   }
+  // }
 }

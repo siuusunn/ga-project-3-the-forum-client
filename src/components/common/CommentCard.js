@@ -1,6 +1,9 @@
-import { useState, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { API } from '../../lib/api';
+import ProfilePicture from './ProfilePicture';
 import '../../styles/CommentCard.scss';
+import blankPic from '../../assets/placeholder-profile-picture.png';
 
 export default function CommentCard({
   text,
@@ -12,14 +15,29 @@ export default function CommentCard({
   isDeleted,
   deletedComments,
   setIsContentUpdated,
+  userId,
+  timePosted,
   parentCommentId
 }) {
   const formInput = useRef(null);
   const [newReplyFormFields, setNewReplyFormFields] = useState({
     text: ''
   });
+  const [cloudinaryImageId, setCloudinaryImageId] = useState(null);
 
-  console.log(comments);
+  useEffect(() => {
+    if (userId && !isDeleted) {
+      API.GET(API.ENDPOINTS.singleUser(userId))
+        .then(({ data }) => {
+          setCloudinaryImageId(data.cloudinaryImageId);
+        })
+        .catch(({ message, response }) => {
+          console.error(message, response);
+        });
+    }
+  }, [userId]);
+
+  const timestamp = new Date(timePosted).toLocaleString();
 
   const handleNewReplyChange = (event) => {
     setNewReplyFormFields({ [event.target.name]: event.target.value });
@@ -54,7 +72,7 @@ export default function CommentCard({
     API.DELETE(API.ENDPOINTS.singleComment(commentId), API.getHeaders())
       .then(({ data }) => {
         console.log(data);
-        console.log('Deleted review');
+        console.log('Deleted comment');
         setIsContentUpdated(true);
       })
       .catch((err) => console.error(err));
@@ -66,45 +84,57 @@ export default function CommentCard({
     return (
       <div className='CommentCard'>
         <div className='comment-header'>
-          {username ? (
-            <div className='profile-picture'></div>
-          ) : (
-            <div className='profile-picture'></div>
-          )}
-          <p>{username}</p>
-        </div>
-        <div className='comment-main'>
-          <div className='comment-content'>
-            {!isDeleted ? (
-              <p>{text}</p>
+          <div className='profile-picture-container'>
+            {cloudinaryImageId ? (
+              <ProfilePicture
+                className='profile-picture'
+                cloudinaryImageId={cloudinaryImageId}
+              />
             ) : (
-              <p>
-                <em>This comment has been deleted.</em>
-              </p>
-            )}
-            {username && (
-              <p>
-                Likes: {likes}, Dislikes: {dislikes}
-              </p>
-            )}
-            {username && (
-              <div className='comment-actions'>
-                <button onClick={handleDeleteComment}>Delete</button>
-                <form onSubmit={handleReplySubmit}>
-                  <label htmlFor='comment-text'> Reply: </label>
-                  <input
-                    ref={formInput}
-                    type='text'
-                    id='comment-text'
-                    name='text'
-                    value={newReplyFormFields.text}
-                    onChange={handleNewReplyChange}
-                  ></input>
-                  <button type='submit'>Post reply</button>
-                </form>
-              </div>
+              <img src={blankPic} alt='blank profile picture' />
             )}
           </div>
+          {username && (
+            <>
+              <Link to={`/profile/${userId}`}>
+                <p className='username'>{username}</p>
+              </Link>
+              <p>posted on:</p>
+              <p className='timestamp'>{`${timestamp}`}</p>
+            </>
+          )}{' '}
+          {isDeleted && (
+            <p className='comment-deleted-text'>(comment deleted)</p>
+          )}
+        </div>
+        <div className='comment-main'>
+          {!isDeleted && (
+            <div className='comment-content'>
+              <p className='comment-text'>{text}</p>
+              {username && (
+                <p>
+                  Likes: {likes}, Dislikes: {dislikes}
+                </p>
+              )}
+              {username && (
+                <div className='comment-actions'>
+                  <button onClick={handleDeleteComment}>Delete</button>
+                  <form onSubmit={handleReplySubmit}>
+                    <label htmlFor='comment-text'> Reply: </label>
+                    <input
+                      ref={formInput}
+                      type='text'
+                      id='comment-text'
+                      name='text'
+                      value={newReplyFormFields.text}
+                      onChange={handleNewReplyChange}
+                    ></input>
+                    <button type='submit'>Post reply</button>
+                  </form>
+                </div>
+              )}
+            </div>
+          )}
           {comments?.map((comment) => {
             return (
               <CommentCard
@@ -114,9 +144,11 @@ export default function CommentCard({
                 dislikes={comment.dislikes}
                 comments={comment.comments}
                 username={comment.addedBy?.username}
+                userId={comment.addedBy?._id}
                 isDeleted={comment.isDeleted}
                 deletedComments={comment.deletedComments}
                 commentId={comment._id}
+                timePosted={comment.createdAt}
                 setIsContentUpdated={setIsContentUpdated}
               ></CommentCard>
             );
