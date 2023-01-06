@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
+import { PostLikes } from './common/PostLikes';
 import { API } from '../lib/api';
 import CommentThread from './common/CommentThread';
 // import LikeButton from './LikeButton';
@@ -48,7 +49,7 @@ export const DisplayPost = ({ id }) => {
       .catch((err) => console.error(err));
   };
 
-  const humanDate = new Date(singlePost?.createdAt);
+  const humanDate = new Date(singlePost?.createdAt).toLocaleString();
 
   return (
     <>
@@ -59,9 +60,16 @@ export const DisplayPost = ({ id }) => {
             Posted by: {singlePost?.addedBy.username} on <i>{`${humanDate}`}</i>
           </p>
           <p>{singlePost?.content}</p>
-          <p>
-            Likes: {singlePost?.likes} | Dislikes: {singlePost?.dislikes}
-          </p>
+          <div className='likes-container-outer'>
+            <div className='likes-container-inner'>
+              <PostLikes
+                storedLikes={singlePost?.likes}
+                storedDislikes={singlePost?.dislikes}
+                id={id}
+                setIsContentUpdated={setIsContentUpdated}
+              />
+            </div>
+          </div>
         </Box>
         <div className='comments-container'>
           <form onSubmit={handleNewCommentSubmit}>
