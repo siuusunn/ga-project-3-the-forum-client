@@ -8,13 +8,12 @@ import { Container, Box } from "@mui/material";
 
 import "../styles/SinglePost.scss";
 
-export const SinglePost = () => {
+export const DisplayPost = ({ id }) => {
   const [singlePost, setSinglePost] = useState(null);
   const [newCommentFormFields, setNewCommentFormFields] = useState({
     text: "",
   });
   const [isContentUpdated, setIsContentUpdated] = useState(false);
-  const { id } = useParams();
 
   useEffect(() => {
     if (id === null) return;
