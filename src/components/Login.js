@@ -3,6 +3,9 @@ import { API } from '../lib/api';
 import { AUTH } from '../lib/auth';
 import { useNavigate } from 'react-router-dom';
 
+import { Container, Box, TextField, Button } from '@mui/material';
+import { EmailOutlined, PasswordOutlined } from '@mui/icons-material';
+
 export default function Login() {
   const navigate = useNavigate();
   const [formFields, setFormFields] = useState({
@@ -29,33 +32,88 @@ export default function Login() {
   };
 
   return (
-    <div className='Register'>
-      <div className='outer-container'>
-        <h2>Login</h2>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor='email'>Email:</label>
-            <input
-              type='email'
-              id='email'
-              name='email'
-              value={formFields.email}
-              onChange={handleChange}
-            ></input>
-          </div>
-          <div>
-            <label htmlFor='password'>Password:</label>
-            <input
-              type='password'
-              id='password'
-              name='password'
-              value={formFields.password}
-              onChange={handleChange}
-            ></input>
-          </div>
-          <button type='submit'>Log In</button>
-        </form>
-      </div>
-    </div>
+    <>
+      <Container
+        maxWidth='sm'
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          mt: 5
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center'
+          }}
+        >
+          <h1>Login</h1>
+          <form onSubmit={handleSubmit}>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'flex-end',
+                justifyContent: 'center',
+                width: 350
+              }}
+            >
+              <EmailOutlined sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
+              <TextField
+                fullWidth
+                id='email'
+                name='email'
+                label='Email'
+                type='email'
+                variant='standard'
+                onChange={handleChange}
+                required
+              />
+            </Box>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'flex-end',
+                justifyContent: 'center'
+              }}
+            >
+              <PasswordOutlined
+                sx={{ color: 'action.active', mr: 1, my: 0.5 }}
+              />
+              <TextField
+                fullWidth
+                id='password'
+                name='password'
+                label='Password'
+                type='password'
+                variant='standard'
+                onChange={handleChange}
+                required
+              />
+            </Box>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexDirection: 'column'
+              }}
+            ></Box>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'flex-end',
+                justifyContent: 'center'
+              }}
+            >
+              <Button type='submit' variant='contained' sx={{ mt: 5 }}>
+                Log In
+              </Button>
+            </Box>
+          </form>
+        </Box>
+      </Container>
+    </>
   );
 }
