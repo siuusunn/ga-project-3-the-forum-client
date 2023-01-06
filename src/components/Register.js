@@ -4,6 +4,24 @@ import { AUTH } from '../lib/auth';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Register.scss';
 
+import {
+  Container,
+  Box,
+  Input,
+  InputLabel,
+  TextField,
+  FormControl,
+  InputAdornment,
+  Button
+} from '@mui/material';
+
+import {
+  AccountCircleOutlined,
+  EmailOutlined,
+  PasswordOutlined,
+  FileUploadOutlined
+} from '@mui/icons-material';
+
 export default function Register() {
   const navigate = useNavigate();
   const [formFields, setFormFields] = useState({
@@ -16,6 +34,7 @@ export default function Register() {
 
   const handleChange = (event) => {
     setFormFields({ ...formFields, [event.target.name]: event.target.value });
+    console.log(formFields);
   };
 
   const handleFileChange = (event) => {
@@ -61,63 +80,81 @@ export default function Register() {
   };
 
   return (
-    <div className='Register'>
-      <div className='outer-container'>
-        <h2>Register</h2>
+    <>
+      <Container>
+        <h1>Register</h1>
         <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor='email'>Email:</label>
-            <input
-              type='email'
-              id='email'
-              name='email'
-              value={formFields.email}
-              onChange={handleChange}
-            ></input>
-          </div>
-          <div>
-            <label htmlFor='username'>Username:</label>
-            <input
-              type='text'
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'flex-end'
+            }}
+          >
+            <AccountCircleOutlined
+              sx={{ color: 'action.active', mr: 1, my: 0.5 }}
+            />
+            <TextField
               id='username'
               name='username'
-              value={formFields.username}
+              label='Username'
+              type='text'
+              variant='standard'
               onChange={handleChange}
-            ></input>
-          </div>
-          <div>
-            <label htmlFor='password'>Password:</label>
-            <input
-              type='password'
+              required
+            />
+          </Box>
+          <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
+            <EmailOutlined sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
+            <TextField
+              id='email'
+              name='email'
+              label='Email'
+              type='email'
+              variant='standard'
+              onChange={handleChange}
+              required
+            />
+          </Box>
+          <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
+            <PasswordOutlined sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
+            <TextField
               id='password'
               name='password'
-              value={formFields.password}
-              onChange={handleChange}
-            ></input>
-          </div>
-          <div>
-            <label htmlFor='passwordConfirmation'>Confirm Password:</label>
-            <input
+              label='Password'
               type='password'
+              variant='standard'
+              onChange={handleChange}
+              required
+            />
+          </Box>
+          <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
+            <PasswordOutlined sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
+            <TextField
               id='passwordConfirmation'
               name='passwordConfirmation'
-              value={formFields.passwordConfirmation}
+              label='Password Confirmation'
+              type='password'
+              variant='standard'
               onChange={handleChange}
-            ></input>
-          </div>
-          <div>
-            <label htmlFor='profilePicture'>Profile Picture:</label>
-            <input
-              type='file'
+              required
+            />
+          </Box>
+          <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
+            <FileUploadOutlined
+              sx={{ color: 'action.active', mr: 1, my: 0.5 }}
+            />
+            <TextField
               id='profile-picture'
               name='profile-picture'
+              type='file'
+              variant='standard'
               onChange={handleFileChange}
-            ></input>
-          </div>
-
-          <button type='submit'>Sign up</button>
+              required
+            />
+          </Box>
+          <Button type='submit'>Sign Up</Button>
         </form>
-      </div>
-    </div>
+      </Container>
+    </>
   );
 }
