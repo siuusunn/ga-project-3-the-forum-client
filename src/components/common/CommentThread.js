@@ -19,6 +19,7 @@ export default function CommentThread({ comments, setIsContentUpdated }) {
             deletedComments={comment.deletedComments}
             parentCommentId={comment.parentCommentId}
             commentId={comment._id}
+            timePosted={comment.createdAt}
             setIsContentUpdated={setIsContentUpdated}
           ></CommentCard>
         ))}

@@ -16,6 +16,7 @@ export default function CommentCard({
   deletedComments,
   setIsContentUpdated,
   userId,
+  timePosted,
   parentCommentId
 }) {
   const formInput = useRef(null);
@@ -35,6 +36,8 @@ export default function CommentCard({
         });
     }
   }, [userId]);
+
+  const timestamp = new Date(timePosted).toLocaleString();
 
   const handleNewReplyChange = (event) => {
     setNewReplyFormFields({ [event.target.name]: event.target.value });
@@ -91,7 +94,13 @@ export default function CommentCard({
               <img src={blankPic} alt='blank profile picture' />
             )}
           </div>
-          {username && <p>{username}</p>}
+          {username && (
+            <>
+              <p className='username'>{username}</p>
+              <p>posted on:</p>
+              <p className='timestamp'>{`${timestamp}`}</p>
+            </>
+          )}
         </div>
         <div
           className={`${isDeleted ? 'comment-main deleted' : 'comment-main'}`}
@@ -140,6 +149,7 @@ export default function CommentCard({
                 isDeleted={comment.isDeleted}
                 deletedComments={comment.deletedComments}
                 commentId={comment._id}
+                timePosted={comment.createdAt}
                 setIsContentUpdated={setIsContentUpdated}
               ></CommentCard>
             );
