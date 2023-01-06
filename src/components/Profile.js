@@ -45,7 +45,11 @@ export default function Profile() {
         }}
       >
         <h1>User Profile</h1>
-        <ProfilePicture cloudinaryImageId={userData?.cloudinaryImageId} />
+        <ProfilePicture
+          cloudinaryImageId={userData?.cloudinaryImageId}
+          imageWidth={200}
+          imageHeight={200}
+        />
         <p>Username: {userData?.username}</p>
         <p>Joined on: {`${humanDate}`}</p>
         <p>User ID: {userData?._id}</p>
