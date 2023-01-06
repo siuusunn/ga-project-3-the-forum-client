@@ -16,15 +16,15 @@ export const SinglePost = ({ id }) => {
   const [isContentUpdated, setIsContentUpdated] = useState(false);
 
   useEffect(() => {
-    if (id === null) return;
-    API.GET(API.ENDPOINTS.singlePost(id))
-      .then(({ data }) => {
-        setSinglePost(data);
-      })
-      .catch(({ message, response }) => {
-        console.error(message, response);
-      });
-
+    if (id) {
+      API.GET(API.ENDPOINTS.singlePost(id))
+        .then(({ data }) => {
+          setSinglePost(data);
+        })
+        .catch(({ message, response }) => {
+          console.error(message, response);
+        });
+    }
     setIsContentUpdated(false);
     console.log(isContentUpdated);
   }, [id, isContentUpdated]);
@@ -59,15 +59,16 @@ export const SinglePost = ({ id }) => {
             Posted by: {singlePost?.addedBy.username} on <i>{`${humanDate}`}</i>
           </p>
           <p>{singlePost?.content}</p>
-          <p>
-            Likes: {singlePost?.likes} | Dislikes: {singlePost?.dislikes}
-          </p>
-          <PostLikes
-            storedLikes={singlePost?.likes}
-            storedDislikes={singlePost?.dislikes}
-            id={id}
-            setIsContentUpdated={setIsContentUpdated}
-          />
+          <div className='likes-container-outer'>
+            <div className='likes-container-inner'>
+              <PostLikes
+                storedLikes={singlePost?.likes}
+                storedDislikes={singlePost?.dislikes}
+                id={id}
+                setIsContentUpdated={setIsContentUpdated}
+              />
+            </div>
+          </div>
         </Box>
         <div className='comments-container'>
           <form onSubmit={handleNewCommentSubmit}>

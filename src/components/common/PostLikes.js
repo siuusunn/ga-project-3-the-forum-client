@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
-import { Button } from '@mui/material';
+import { Container, Button } from '@mui/material';
 import { API } from '../../lib/api';
+
+import '../../styles/PostLikes.scss'
 
 export const PostLikes = ({
   storedLikes,
@@ -42,7 +44,7 @@ export const PostLikes = ({
   };
 
   return (
-    <>
+    <div className="PostLikes">
       <Button onClick={handleLike}>
         <ThumbUpIcon />
         {`${storedLikes}`}
@@ -51,6 +53,6 @@ export const PostLikes = ({
         <ThumbDownIcon />
         {`${storedDislikes}`}
       </Button>
-    </>
+    </div>
   );
 };

@@ -1,0 +1,26 @@
+.DisplayPosts {
+  margin-bottom: 2px;
+  cursor: pointer;
+  .post-topic {
+    text-align: left;
+    width: 100%;
+    background-color: white;
+    border: 1px solid rgba(128, 128, 128, 0.303);
+    p {
+      margin: 5px 5px 5px 10px;
+    }
+  }
+  .postedby-wrapper {
+    display: flex;
+    padding-left: 15px;
+    p {
+      margin: 0px;
+    }
+    .postedby-text {
+      margin-right: 5px;
+    }
+    .postedby-username {
+      font-style: bold;
+    }
+  }
+}
