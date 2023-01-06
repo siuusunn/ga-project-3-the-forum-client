@@ -1,5 +1,5 @@
-import "./styles/App.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import './styles/App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
@@ -11,11 +11,11 @@ import Register from "./components/Register";
 import PostsIndex from "./components/PostsIndex";
 import CommentThread from "./components/common/CommentThread";
 
-window.Buffer = window.Buffer || require("buffer").Buffer;
+window.Buffer = window.Buffer || require('buffer').Buffer;
 
 function App() {
   return (
-    <div id="app" style={({ height: "100vh" }, { display: "flex" })}>
+    <div id='app' style={({ height: '100vh' }, { display: 'flex' })}>
       <Router>
         <Navbar />
         <Routes>
