@@ -40,6 +40,7 @@ export default function Profile() {
         <p>Username: {userData?.username}</p>
         <p>Joined on: {`${humanDate}`}</p>
         <p>User ID: {userData?._id}</p>
+        <p>Posts: {userData?.posts}</p>
       </Container>
     </>
   );
