@@ -68,7 +68,8 @@ export default function Login() {
                 display: 'flex',
                 alignItems: 'flex-end',
                 justifyContent: 'center',
-                width: 350
+                width: 350,
+                mb: 2
               }}
             >
               <EmailOutlined sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
@@ -98,7 +99,7 @@ export default function Login() {
                 id='password'
                 name='password'
                 label='Password'
-                type={showPassword ? 'test' : 'password'}
+                type={showPassword ? 'text' : 'password'}
                 variant='standard'
                 onChange={handleChange}
                 required

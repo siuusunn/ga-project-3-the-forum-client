@@ -4,13 +4,15 @@ import { AUTH } from '../lib/auth';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Register.scss';
 
-import { Container, Box, TextField, Button } from '@mui/material';
+import { Container, Box, TextField, Button, IconButton } from '@mui/material';
 
 import {
   AccountCircleOutlined,
   EmailOutlined,
   PasswordOutlined,
-  FileUploadOutlined
+  FileUploadOutlined,
+  VisibilityOutlined,
+  VisibilityOffOutlined
 } from '@mui/icons-material';
 
 export default function Register() {
@@ -22,6 +24,13 @@ export default function Register() {
     passwordConfirmation: ''
   });
   const [file, setFile] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
   const handleChange = (event) => {
     setFormFields({ ...formFields, [event.target.name]: event.target.value });
@@ -95,7 +104,8 @@ export default function Register() {
                 display: 'flex',
                 alignItems: 'flex-end',
                 justifyContent: 'center',
-                mt: 2
+                mt: 2,
+                mb: 2
               }}
             >
               <AccountCircleOutlined
@@ -116,7 +126,8 @@ export default function Register() {
               sx={{
                 display: 'flex',
                 alignItems: 'flex-end',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                mb: 2
               }}
             >
               <EmailOutlined sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
@@ -135,7 +146,8 @@ export default function Register() {
               sx={{
                 display: 'flex',
                 alignItems: 'flex-end',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                mb: 2
               }}
             >
               <PasswordOutlined
@@ -146,17 +158,30 @@ export default function Register() {
                 id='password'
                 name='password'
                 label='Password'
-                type='password'
+                type={showPassword ? 'text ' : 'password'}
                 variant='standard'
                 onChange={handleChange}
                 required
               />
+              <IconButton
+                aria-label='toggle-password-visibility'
+                onClick={handleClickShowPassword}
+                onMouseDown={handleMouseDownPassword}
+                edge='end'
+              >
+                {showPassword ? (
+                  <VisibilityOffOutlined />
+                ) : (
+                  <VisibilityOutlined />
+                )}
+              </IconButton>
             </Box>
             <Box
               sx={{
                 display: 'flex',
                 alignItems: 'flex-end',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                mb: 2
               }}
             >
               <PasswordOutlined
@@ -167,18 +192,31 @@ export default function Register() {
                 id='passwordConfirmation'
                 name='passwordConfirmation'
                 label='Password Confirmation'
-                type='password'
+                type={showPassword ? 'text' : 'password'}
                 variant='standard'
                 onChange={handleChange}
                 required
               />
+              <IconButton
+                aria-label='toggle-password-visibility'
+                onClick={handleClickShowPassword}
+                onMouseDown={handleMouseDownPassword}
+                edge='end'
+              >
+                {showPassword ? (
+                  <VisibilityOffOutlined />
+                ) : (
+                  <VisibilityOutlined />
+                )}
+              </IconButton>
             </Box>
             <Box
               sx={{
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                flexDirection: 'column'
+                flexDirection: 'column',
+                mb: 2
               }}
             >
               <h4>Upload a Profile Picture:</h4>
