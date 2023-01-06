@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { API } from '../lib/api';
 import { AUTH } from '../lib/auth';
 
-import { Container } from '@mui/material';
+import { Container, List, Button, Box } from '@mui/material';
 
 import DisplaySinglePostOnProfile from '../components/common/DisplaySinglePostOnProfile';
 import ProfilePicture from './common/ProfilePicture';
@@ -30,22 +30,43 @@ export default function Profile() {
   }, [id]);
 
   const userPosts = userData?.posts;
-  console.log(userPosts);
 
   const humanDate = new Date(userData?.createdAt).toLocaleDateString();
 
   return (
     <>
-      <Container>
+      <Container
+        maxWidth='sm'
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          mt: 3
+        }}
+      >
         <h1>User Profile</h1>
         <ProfilePicture cloudinaryImageId={userData?.cloudinaryImageId} />
         <p>Username: {userData?.username}</p>
         <p>Joined on: {`${humanDate}`}</p>
         <p>User ID: {userData?._id}</p>
-        <p>Posts:</p>
-        {userPosts?.map((post) => (
-          <DisplaySinglePostOnProfile postId={post} key={post} />
-        ))}
+        <Button variant='outlined' size='small'>
+          Edit Profile
+        </Button>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            mt: 5
+          }}
+        >
+          <h3>Posts by user:</h3>
+          <List>
+            {userPosts?.map((post) => (
+              <DisplaySinglePostOnProfile postId={post} key={post} />
+            ))}
+          </List>
+        </Box>
       </Container>
     </>
   );
