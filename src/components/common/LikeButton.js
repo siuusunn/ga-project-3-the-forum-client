@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import PostLikes from "./common/PostLikes";
-import { API } from "../lib/api";
+import { useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import PostLikes from './PostLikes';
+import { API } from '../../lib/api';
 
 export default function LikeButton() {
   const [likes, setLikes] = useState(100);
@@ -19,10 +19,10 @@ export default function LikeButton() {
 
   return (
     <button
-      className={`like-button ${isClicked && "liked"}`}
+      className={`like-button ${isClicked && 'liked'}`}
       onClick={handleClick}
     >
-      <span className="likes-counter">{`Like | ${likes}`}</span>
+      <span className='likes-counter'>{`Like | ${likes}`}</span>
     </button>
   );
 }

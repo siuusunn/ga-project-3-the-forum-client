@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { API } from "../lib/api";
-import { Grid, Paper, Box, styled } from "@mui/material";
+import { Grid, Paper, styled } from "@mui/material";
 import { PostLikes } from "./common/PostLikes";
 import { SinglePost } from "./SinglePost";
 
@@ -19,7 +19,7 @@ export const DisplayPosts = ({ post, selectedId }) => {
   return (
     <Grid item xs={4} key={post._id} sx={{}}>
       <Item onClick={handleClick}>{post.topic}</Item>
-      <PostLikes></PostLikes>
+      <PostLikes storedLikes={post.likes} storedDislikes={post.dislikes}/>
     </Grid>
   );
 };

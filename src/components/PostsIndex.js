@@ -51,7 +51,7 @@ export default function PostsIndex() {
         columns={1}
         sx={{ marginLeft: "12px", marginTop: "20px", width: "50%" }}
       >
-        <SinglePost id={id}></SinglePost>
+        {id && <SinglePost id={id}></SinglePost>}
       </Grid>
     </Box>
   );
