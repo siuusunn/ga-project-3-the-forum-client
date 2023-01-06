@@ -6,7 +6,7 @@ import { SinglePost } from './SinglePost';
 
 import '../styles/DisplayPosts.scss';
 
-export const DisplayPosts = ({ post, selectedId }) => {
+export const DisplayAllPosts = ({ post, selectedId }) => {
   const handleClick = () => {
     selectedId(post._id);
   };

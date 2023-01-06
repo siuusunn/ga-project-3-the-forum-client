@@ -3,7 +3,7 @@ import { API } from '../lib/api';
 import { Grid, Paper, Box, styled } from '@mui/material';
 import { PostLikes } from './common/PostLikes';
 import { SinglePost } from './SinglePost';
-import { DisplayPosts } from './DisplayPosts';
+import { DisplayAllPosts } from './DisplayAllPosts';
 
 import '../styles/PostsIndex.scss';
 
@@ -43,7 +43,7 @@ export default function PostsIndex() {
     >
       <div className='grid-left'>
         {posts?.map((post) => (
-          <DisplayPosts key={post._id} post={post} selectedId={selectedId} />
+          <DisplayAllPosts key={post._id} post={post} selectedId={selectedId} />
         ))}
       </div>
       <Grid
