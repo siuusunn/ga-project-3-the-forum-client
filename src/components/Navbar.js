@@ -1,4 +1,10 @@
-import { Sidebar, Menu, MenuItem, useProSidebar } from 'react-pro-sidebar';
+import {
+  Sidebar,
+  Menu,
+  MenuItem,
+  useProSidebar,
+  SubMenu
+} from 'react-pro-sidebar';
 import { useAuthenticated } from '../hooks/useAuthenticated';
 
 import {
@@ -9,7 +15,11 @@ import {
   LibraryBooksOutlined,
   HowToRegOutlined,
   LogoutOutlined,
-  AccountCircleOutlined
+  AccountCircleOutlined,
+  InfoOutlined,
+  Add,
+  GitHub,
+  LinkedIn
 } from '@mui/icons-material';
 
 import { Link, useNavigate } from 'react-router-dom';
@@ -87,6 +97,20 @@ export default function Navbar() {
             </MenuItem>
           </>
         )}
+        <SubMenu label='Dev Info' icon={<InfoOutlined />}>
+          <SubMenu label='siuusunn' icon={<Add />}>
+            <MenuItem icon={<GitHub />}>GitHub</MenuItem>
+            <MenuItem icon={<LinkedIn />}>LinkedIn</MenuItem>
+          </SubMenu>
+          <SubMenu label='ljsgrant' icon={<Add />}>
+            <MenuItem icon={<GitHub />}>GitHub</MenuItem>
+            <MenuItem icon={<LinkedIn />}>LinkedIn</MenuItem>
+          </SubMenu>
+          <SubMenu label='ParulSingh16' icon={<Add />}>
+            <MenuItem icon={<GitHub />}>GitHub</MenuItem>
+            <MenuItem icon={<LinkedIn />}>LinkedIn</MenuItem>
+          </SubMenu>
+        </SubMenu>
       </Menu>
     </Sidebar>
   );
