@@ -25,7 +25,7 @@ export default function CommentCard({
   const [cloudinaryImageId, setCloudinaryImageId] = useState(null);
 
   useEffect(() => {
-    if (userId) {
+    if (userId && !isDeleted) {
       API.GET(API.ENDPOINTS.singleUser(userId))
         .then(({ data }) => {
           setCloudinaryImageId(data.cloudinaryImageId);
@@ -69,7 +69,7 @@ export default function CommentCard({
     API.DELETE(API.ENDPOINTS.singleComment(commentId), API.getHeaders())
       .then(({ data }) => {
         console.log(data);
-        console.log('Deleted review');
+        console.log('Deleted comment');
         setIsContentUpdated(true);
       })
       .catch((err) => console.error(err));
@@ -93,13 +93,15 @@ export default function CommentCard({
           </div>
           {username && <p>{username}</p>}
         </div>
-        <div className='comment-main'>
+        <div
+          className={`${isDeleted ? 'comment-main deleted' : 'comment-main'}`}
+        >
           <div className='comment-content'>
             {!isDeleted ? (
               <p className='comment-text'>{text}</p>
             ) : (
               <p>
-                <em>This comment has been deleted.</em>
+                <em>(comment deleted)</em>
               </p>
             )}
             {username && (
