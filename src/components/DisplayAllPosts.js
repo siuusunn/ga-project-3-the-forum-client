@@ -19,8 +19,6 @@ export const DisplayAllPosts = ({ post, selectedId }) => {
     color: theme.palette.text.secondary
   }));
 
-  console.log(post);
-
   return (
     <div className='DisplayPosts'>
       <Item
