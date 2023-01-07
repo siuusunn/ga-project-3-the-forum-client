@@ -3,7 +3,13 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { API } from '../lib/api';
 import { AUTH } from '../lib/auth';
 
-import { Container, List, Button, Box, Paper } from '@mui/material';
+import { Container, List, Button, Box, Paper, TextField } from '@mui/material';
+
+import {
+  FileUploadOutlined,
+  VisibilityOutlined,
+  VisibilityOffOutlined
+} from '@mui/icons-material';
 
 import DisplaySinglePostOnProfile from '../components/common/DisplaySinglePostOnProfile';
 import ProfilePicture from './common/ProfilePicture';
@@ -19,6 +25,57 @@ export default function Profile() {
     cloudinaryImageId: ''
   });
 
+  const [isEditMode, setIsEditMode] = useState(false);
+  const toggleEditMode = () => setIsEditMode(!isEditMode);
+
+  const [formFields, setFormFields] = useState({
+    username: '',
+    email: '',
+    password: '',
+    passwordConfirmation: ''
+  });
+  const [file, setFile] = useState('');
+
+  const handleChange = (event) => {
+    setFormFields({ ...formFields, [event.target.name]: event.target.value });
+    console.log(formFields);
+  };
+
+  // const handleFileChange = (event) => {
+  //   event.preventDefault();
+  //   setFile(event.target.files[0]);
+  // };
+
+  const handleSaveChanges = async (event) => {
+    event.preventDefault();
+    // const imageData = new FormData();
+    // imageData.append('file', file);
+    // imageData.append(
+    //   'upload_preset',
+    //   process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET
+    // );
+    try {
+      console.log(formFields);
+      await API.PUT(
+        API.ENDPOINTS.singleUser(userData?._id),
+        formFields,
+        API.getHeaders()
+      );
+
+      const loginData = await API.POST(API.ENDPOINTS.login, {
+        email: formFields.email,
+        password: formFields.password
+      });
+
+      AUTH.setToken(loginData.data.token);
+
+      console.log('Logged in!');
+      navigate('/');
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     API.GET(API.ENDPOINTS.singleUser(id))
       .then(({ data }) => {
@@ -32,8 +89,6 @@ export default function Profile() {
   const userPosts = userData?.posts;
 
   const humanDate = new Date(userData?.createdAt).toLocaleDateString();
-
-  console.log(AUTH.isOwner(userData?._id));
 
   return (
     <>
@@ -60,19 +115,90 @@ export default function Profile() {
             mb: 5
           }}
         >
-          <ProfilePicture
-            cloudinaryImageId={userData?.cloudinaryImageId}
-            imageWidth={200}
-            imageHeight={200}
-          />
-          <p>Username: {userData?.username}</p>
-          <p>Joined on: {`${humanDate}`}</p>
-          <p>User ID: {userData?._id}</p>
+          {isEditMode ? (
+            <>
+              <ProfilePicture
+                cloudinaryImageId={userData?.cloudinaryImageId}
+                imageWidth={200}
+                imageHeight={200}
+              />
+              <TextField
+                fullWidth
+                id='username'
+                name='username'
+                label='Username'
+                type='text'
+                variant='standard'
+                defaultValue={userData.username}
+                onChange={handleChange}
+                required
+                sx={{ mt: 3 }}
+              />
+              <TextField
+                fullWidth
+                id='email'
+                name='email'
+                label='Email'
+                type='email'
+                variant='standard'
+                defaultValue={userData.email}
+                onChange={handleChange}
+                required
+              />
+              <TextField
+                fullWidth
+                id='password'
+                name='password'
+                label='New Password'
+                type='password'
+                variant='standard'
+                onChange={handleChange}
+                required
+              />
+              <TextField
+                fullWidth
+                id='passwordConfirmation'
+                name='passwordConfirmation'
+                label='New Password Confirmation'
+                type='password'
+                variant='standard'
+                onChange={handleChange}
+                required
+              />
+              {/* <h4>Upload a new profile picture:</h4>
+              <TextField
+                id='profile-picture'
+                name='profile-picture'
+                type='file'
+                variant='standard'
+                onChange={handleFileChange}
+                required
+              /> */}
+            </>
+          ) : (
+            <>
+              <ProfilePicture
+                cloudinaryImageId={userData?.cloudinaryImageId}
+                imageWidth={200}
+                imageHeight={200}
+              />
+              <p>Username: {userData?.username}</p>
+              <p>Joined on: {`${humanDate}`}</p>
+              <p>User ID: {userData?._id}</p>
+            </>
+          )}
         </Paper>
         {AUTH.isOwner(userData?._id) && (
-          <Button variant='outlined' size='small'>
-            Edit Profile
-          </Button>
+          <>
+            {isEditMode ? (
+              <>
+                <Button onClick={handleSaveChanges}>Save Changes</Button>
+                <Button onClick={toggleEditMode}>Cancel</Button>
+              </>
+            ) : (
+              <Button onClick={toggleEditMode}>Edit Profile</Button>
+            )}
+          </>
         )}
         <Box
           sx={{
