@@ -31,9 +31,9 @@ export default function Profile() {
 
   const userPosts = userData?.posts;
 
-  console.log(userPosts);
-
   const humanDate = new Date(userData?.createdAt).toLocaleDateString();
+
+  console.log(AUTH.isOwner(userData?._id));
 
   return (
     <>
@@ -69,9 +69,11 @@ export default function Profile() {
           <p>Joined on: {`${humanDate}`}</p>
           <p>User ID: {userData?._id}</p>
         </Paper>
-        <Button variant='outlined' size='small'>
-          Edit Profile
-        </Button>
+        {AUTH.isOwner(userData?._id) && (
+          <Button variant='outlined' size='small'>
+            Edit Profile
+          </Button>
+        )}
         <Box
           sx={{
             display: 'flex',
