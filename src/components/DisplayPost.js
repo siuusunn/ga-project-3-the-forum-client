@@ -2,10 +2,19 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { PostLikes } from './common/PostLikes';
 import { API } from '../lib/api';
+import { AUTH } from '../lib/auth';
 import CommentThread from './common/CommentThread';
-// import LikeButton from './LikeButton';
 
-import { Container, Box } from '@mui/material';
+import {
+  Container,
+  Box,
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions
+} from '@mui/material';
 
 import '../styles/SinglePost.scss';
 
@@ -15,6 +24,7 @@ export const DisplayPost = ({ id }) => {
     text: ''
   });
   const [isContentUpdated, setIsContentUpdated] = useState(false);
+  const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState(false);
 
   useEffect(() => {
     if (id === null) return;
@@ -27,7 +37,7 @@ export const DisplayPost = ({ id }) => {
       });
 
     setIsContentUpdated(false);
-    console.log(isContentUpdated);
+    // console.log(isContentUpdated);
   }, [id, isContentUpdated]);
 
   const handleNewCommentChange = (event) => {
@@ -43,10 +53,40 @@ export const DisplayPost = ({ id }) => {
       API.getHeaders()
     )
       .then(({ data }) => {
-        console.log(data);
+        // console.log(data);
         setIsContentUpdated(true);
       })
       .catch((err) => console.error(err));
+  };
+
+  const deletePost = () => {
+    console.log('delete post');
+    API.DELETE(API.ENDPOINTS.singlePost(id), API.getHeaders())
+      .then(() => {
+        setIsContentUpdated(true);
+      })
+      .catch((err) => console.error(err));
+  };
+
+  const handleEditPost = () => {
+    console.log('edit post');
+  };
+
+  const handleDeleteAlertOpen = () => {
+    setIsDeleteAlertOpen(true);
+  };
+
+  const handleDeleteAlertClose = () => {
+    setIsDeleteAlertOpen(false);
+  };
+
+  const handleDeleteConfirm = () => {
+    deletePost();
+    handleDeleteAlertClose();
+  };
+
+  const handleDeleteCancel = () => {
+    handleDeleteAlertClose();
   };
 
   const humanDate = new Date(singlePost?.createdAt).toLocaleString();
@@ -69,6 +109,19 @@ export const DisplayPost = ({ id }) => {
                 setIsContentUpdated={setIsContentUpdated}
               />
             </div>
+          </div>
+          <div className='post-actions'>
+            <Button size='small' onClick={handleEditPost} variant='contained'>
+              Edit Post
+            </Button>
+            <Button
+              size='small'
+              color='error'
+              onClick={handleDeleteAlertOpen}
+              variant='contained'
+            >
+              Delete Post
+            </Button>
           </div>
         </Box>
         <div className='comments-container'>
@@ -93,6 +146,34 @@ export const DisplayPost = ({ id }) => {
           />
         </div>
       </Container>
+      <Dialog
+        open={isDeleteAlertOpen}
+        onClose={handleDeleteAlertClose}
+        aria-labelledby='alert-dialog-title'
+        aria-describedby='alert-dialog-description'
+      >
+        <DialogTitle color='error' id='alert-dialog-title'>
+          {'Delete Post'}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id='alert-dialog-description'>
+            Are you sure you want to delete
+            {AUTH.isOwner(singlePost?.addedBy._id)
+              ? ' your'
+              : ` this user's`}{' '}
+            post <strong>{singlePost?.topic}</strong>? You can't undo this
+            action!
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDeleteCancel} color='primary'>
+            Cancel
+          </Button>
+          <Button onClick={handleDeleteConfirm} color='error' autoFocus>
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };
