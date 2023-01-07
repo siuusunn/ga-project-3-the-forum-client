@@ -29,6 +29,8 @@ export default function Profile() {
   const [isEditMode, setIsEditMode] = useState(false);
   const toggleEditMode = () => setIsEditMode(!isEditMode);
 
+  const [isUpdated, setIsUpdated] = useState(false);
+
   const [formFields, setFormFields] = useState({
     username: '',
     email: '',
@@ -85,7 +87,8 @@ export default function Profile() {
 
       console.log('Logged in!');
       NOTIFY.SUCCESS('User profile updated!');
-      navigate(`/`);
+      setIsUpdated(true);
+      setIsEditMode(false);
     } catch (error) {
       console.error(error);
     }
@@ -99,7 +102,8 @@ export default function Profile() {
       .catch(({ message, response }) => {
         console.error(message, response);
       });
-  }, [id]);
+    setIsUpdated(false);
+  }, [id, isUpdated]);
 
   const userPosts = userData?.posts;
 
