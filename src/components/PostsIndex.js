@@ -8,6 +8,7 @@ import { DisplayPost } from './DisplayPost';
 import { PostLikes } from './common/PostLikes';
 import { SinglePost } from './SinglePost';
 import { DisplayAllPosts } from './DisplayAllPosts';
+import DefaultLandingComponent from './DefaultLandingComponent';
 
 import { Grid, Paper, Box, styled } from '@mui/material';
 
@@ -21,7 +22,6 @@ export default function PostsIndex() {
   useEffect(() => {
     API.GET(API.ENDPOINTS.allPosts)
       .then(({ data }) => {
-        NOTIFY.SUCCESS(`got a post ${data.length} from a user!`);
         setPosts(data);
       })
       .catch(({ message, response }) => {
@@ -61,8 +61,10 @@ export default function PostsIndex() {
         columns={1}
         sx={{ marginLeft: '12px', marginTop: '20px', width: '50%' }}
       >
-        {id && (
-          <DisplayPost id={id} setPostsUpdated={setPostsUpdated}></DisplayPost>
+        {id ? (
+          <DisplayPost id={id} setPostsUpdated={setPostsUpdated} />
+        ) : (
+          <DefaultLandingComponent />
         )}
       </Grid>
     </Box>
