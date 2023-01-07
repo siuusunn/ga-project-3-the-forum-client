@@ -123,7 +123,9 @@ export default function CommentCard({
               )}
               {username && isLoggedIn && (
                 <div className='comment-actions'>
-                  <button onClick={handleDeleteComment}>Delete</button>
+                  {(AUTH.isOwner(userId) || AUTH.getPayload().isAdmin) && (
+                    <button onClick={handleDeleteComment}>Delete</button>
+                  )}
                   <form onSubmit={handleReplySubmit}>
                     <label htmlFor='comment-text'> Reply: </label>
                     <input
