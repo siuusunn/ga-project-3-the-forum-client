@@ -101,6 +101,8 @@ export const DisplayPost = ({ id, setPostsUpdated }) => {
 
   const humanDate = new Date(singlePost?.createdAt).toLocaleString();
 
+  console.log(singlePost);
+
   if (isPostDeleted) {
     return (
       <Container className='SinglePost'>
@@ -132,23 +134,27 @@ export const DisplayPost = ({ id, setPostsUpdated }) => {
             </div>
             {isLoggedIn && (
               <div className='post-actions'>
-                <Link to={`/posts/${id}/edit`}>
+                {AUTH.isOwner(singlePost?.addedBy._id) && (
+                  <Link to={`/posts/${id}/edit`}>
+                    <Button
+                      size='small'
+                      onClick={handleEditPost}
+                      variant='contained'
+                    >
+                      Edit Post
+                    </Button>
+                  </Link>
+                )}
+                {(AUTH.isOwner(singlePost?.addedBy._id) || AUTH.getPayload().isAdmin) && (
                   <Button
                     size='small'
-                    onClick={handleEditPost}
+                    color='error'
+                    onClick={handleDeleteAlertOpen}
                     variant='contained'
                   >
-                    Edit Post
+                    Delete Post
                   </Button>
-                </Link>
-                <Button
-                  size='small'
-                  color='error'
-                  onClick={handleDeleteAlertOpen}
-                  variant='contained'
-                >
-                  Delete Post
-                </Button>
+                )}
               </div>
             )}
           </Box>
