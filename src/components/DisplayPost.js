@@ -145,7 +145,8 @@ export const DisplayPost = ({ id, setPostsUpdated }) => {
                     </Button>
                   </Link>
                 )}
-                {(AUTH.isOwner(singlePost?.addedBy._id) || AUTH.getPayload().isAdmin) && (
+                {(AUTH.isOwner(singlePost?.addedBy._id) ||
+                  AUTH.getPayload().isAdmin) && (
                   <Button
                     size='small'
                     color='error'
@@ -159,20 +160,22 @@ export const DisplayPost = ({ id, setPostsUpdated }) => {
             )}
           </Box>
           <div className='comments-container'>
-            <form onSubmit={handleNewCommentSubmit}>
-              <div>
-                <h3>Comments</h3>
-                <label htmlFor='comment-text'>Add a comment: </label>
-                <input
-                  type='text'
-                  id='comment-text'
-                  name='text'
-                  value={newCommentFormFields.text}
-                  onChange={handleNewCommentChange}
-                ></input>
-              </div>
-              <button type='submit'>Submit</button>
-            </form>
+            {isLoggedIn && (
+              <form onSubmit={handleNewCommentSubmit}>
+                <div>
+                  <h3>Comments</h3>
+                  <label htmlFor='comment-text'>Add a comment: </label>
+                  <input
+                    type='text'
+                    id='comment-text'
+                    name='text'
+                    value={newCommentFormFields.text}
+                    onChange={handleNewCommentChange}
+                  ></input>
+                </div>
+                <button type='submit'>Submit</button>
+              </form>
+            )}
 
             <CommentThread
               comments={singlePost?.comments}
