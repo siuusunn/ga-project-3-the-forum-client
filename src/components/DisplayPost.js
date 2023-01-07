@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { PostLikes } from './common/PostLikes';
 import { API } from '../lib/api';
 import { AUTH } from '../lib/auth';
 import CommentThread from './common/CommentThread';
+import { useAuthenticated } from '../hooks/useAuthenticated';
 
 import {
   Container,
@@ -19,6 +20,7 @@ import {
 import '../styles/SinglePost.scss';
 
 export const DisplayPost = ({ id, setPostsUpdated }) => {
+  const [isLoggedIn] = useAuthenticated();
   const [singlePost, setSinglePost] = useState(null);
   const [newCommentFormFields, setNewCommentFormFields] = useState({
     text: ''
@@ -44,7 +46,6 @@ export const DisplayPost = ({ id, setPostsUpdated }) => {
         });
     }
     setIsContentUpdated(false);
-    // console.log(isContentUpdated);
   }, [id, isContentUpdated, isPostDeleted]);
 
   const handleNewCommentChange = (event) => {
@@ -100,6 +101,8 @@ export const DisplayPost = ({ id, setPostsUpdated }) => {
 
   const humanDate = new Date(singlePost?.createdAt).toLocaleString();
 
+  console.log(singlePost);
+
   if (isPostDeleted) {
     return (
       <Container className='SinglePost'>
@@ -129,19 +132,31 @@ export const DisplayPost = ({ id, setPostsUpdated }) => {
                 />
               </div>
             </div>
-            <div className='post-actions'>
-              <Button size='small' onClick={handleEditPost} variant='contained'>
-                Edit Post
-              </Button>
-              <Button
-                size='small'
-                color='error'
-                onClick={handleDeleteAlertOpen}
-                variant='contained'
-              >
-                Delete Post
-              </Button>
-            </div>
+            {isLoggedIn && (
+              <div className='post-actions'>
+                {AUTH.isOwner(singlePost?.addedBy._id) && (
+                  <Link to={`/posts/${id}/edit`}>
+                    <Button
+                      size='small'
+                      onClick={handleEditPost}
+                      variant='contained'
+                    >
+                      Edit Post
+                    </Button>
+                  </Link>
+                )}
+                {(AUTH.isOwner(singlePost?.addedBy._id) || AUTH.getPayload().isAdmin) && (
+                  <Button
+                    size='small'
+                    color='error'
+                    onClick={handleDeleteAlertOpen}
+                    variant='contained'
+                  >
+                    Delete Post
+                  </Button>
+                )}
+              </div>
+            )}
           </Box>
           <div className='comments-container'>
             <form onSubmit={handleNewCommentSubmit}>
