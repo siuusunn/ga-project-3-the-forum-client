@@ -22,6 +22,8 @@ import {
   LinkedIn
 } from '@mui/icons-material';
 
+import { Divider } from '@mui/material';
+
 import { Link, useNavigate } from 'react-router-dom';
 import { AUTH } from '../lib/auth';
 
@@ -38,7 +40,11 @@ export default function Navbar() {
   const { collapseSidebar } = useProSidebar();
 
   return (
-    <Sidebar style={{ height: '100vh' }}>
+    <Sidebar
+      style={{
+        height: '100vh'
+      }}
+    >
       <Menu>
         <MenuItem
           icon={<MenuOutlined />}
@@ -49,6 +55,7 @@ export default function Navbar() {
         >
           <h2>Forum</h2>
         </MenuItem>
+        <Divider />
         <MenuItem icon={<HomeOutlined />} routerLink={<Link to='/' />}>
           Home
         </MenuItem>
@@ -64,7 +71,7 @@ export default function Navbar() {
         >
           Add a New Post
         </MenuItem>
-
+        <Divider />
         {isLoggedIn ? (
           <>
             <MenuItem
@@ -97,7 +104,12 @@ export default function Navbar() {
             </MenuItem>
           </>
         )}
-        <SubMenu label='Dev Info' icon={<InfoOutlined />}>
+        <Divider />
+        <SubMenu
+          label='Dev Info'
+          icon={<InfoOutlined />}
+          // style={{ marginTop: '60vh' }}
+        >
           <SubMenu label='siuusunn' icon={<Add />}>
             <MenuItem icon={<GitHub />}>
               <a
