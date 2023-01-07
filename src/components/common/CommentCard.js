@@ -4,6 +4,8 @@ import { API } from '../../lib/api';
 import ProfilePicture from './ProfilePicture';
 import '../../styles/CommentCard.scss';
 import blankPic from '../../assets/placeholder-profile-picture.png';
+import { useAuthenticated } from '../../hooks/useAuthenticated';
+import { AUTH } from '../../lib/auth';
 
 export default function CommentCard({
   text,
@@ -19,6 +21,7 @@ export default function CommentCard({
   timePosted,
   parentCommentId
 }) {
+  const [isLoggedIn] = useAuthenticated();
   const formInput = useRef(null);
   const [newReplyFormFields, setNewReplyFormFields] = useState({
     text: ''
@@ -118,9 +121,11 @@ export default function CommentCard({
                   Likes: {likes}, Dislikes: {dislikes}
                 </p>
               )}
-              {username && (
+              {username && isLoggedIn && (
                 <div className='comment-actions'>
-                  <button onClick={handleDeleteComment}>Delete</button>
+                  {(AUTH.isOwner(userId) || AUTH.getPayload().isAdmin) && (
+                    <button onClick={handleDeleteComment}>Delete</button>
+                  )}
                   <form onSubmit={handleReplySubmit}>
                     <label htmlFor='comment-text'> Reply: </label>
                     <input
