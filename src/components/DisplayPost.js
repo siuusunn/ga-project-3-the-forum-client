@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { PostLikes } from './common/PostLikes';
 import { API } from '../lib/api';
 import { AUTH } from '../lib/auth';
@@ -44,7 +44,6 @@ export const DisplayPost = ({ id, setPostsUpdated }) => {
         });
     }
     setIsContentUpdated(false);
-    // console.log(isContentUpdated);
   }, [id, isContentUpdated, isPostDeleted]);
 
   const handleNewCommentChange = (event) => {
@@ -130,9 +129,15 @@ export const DisplayPost = ({ id, setPostsUpdated }) => {
               </div>
             </div>
             <div className='post-actions'>
-              <Button size='small' onClick={handleEditPost} variant='contained'>
-                Edit Post
-              </Button>
+              <Link to={`/posts/${id}/edit`}>
+                <Button
+                  size='small'
+                  onClick={handleEditPost}
+                  variant='contained'
+                >
+                  Edit Post
+                </Button>
+              </Link>
               <Button
                 size='small'
                 color='error'

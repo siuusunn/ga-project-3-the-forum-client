@@ -2,8 +2,7 @@
 import "./styles/App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-
-
+import EditPost from "./components/EditPost";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import CreatePost from "./components/CreatePost";
@@ -31,6 +30,7 @@ function App() {
           <Route path="/posts" element={<PostsIndex />} />
           <Route path="/posts/create" element={<CreatePost />} />
           <Route path="/posts/:id" element={<SinglePost />} />
+          <Route path="/posts/:id/edit" element={<EditPost />} />
           <Route path="/profile/:id" element={<Profile />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />

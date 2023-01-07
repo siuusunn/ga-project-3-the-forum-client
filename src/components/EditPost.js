@@ -1,21 +1,38 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { API } from '../lib/api';
-
 import { TextField, Box, Container, Button, Checkbox } from '@mui/material';
 
 import { PostAdd } from '@mui/icons-material';
 
-export default function CreatePost() {
+export default function EditPost() {
+  const { id } = useParams();
   const navigate = useNavigate();
-  const [formFields, setFormFields] = useState({
+  const [testText, setTestText] = useState('Some Test Text');
+  const [singlePost, setSinglePost] = useState({
     topic: '',
-    content: '',
-    timestamp: '',
-    likes: 0,
-    dislikes: 0
+    content: ''
+  });
+  const [formFields, setFormFields] = useState({
+    content: ''
   });
   const [tick, setTick] = useState(false);
+
+  useEffect(() => {
+    API.GET(API.ENDPOINTS.singlePost(id))
+      .then(({ data }) => {
+        setSinglePost(data);
+      })
+      .catch((err) => console.error(err));
+  }, [id]);
+
+  useEffect(() => {
+    setFormFields({
+      topic: singlePost?.topic,
+      content: singlePost?.content
+    });
+  }, [singlePost]);
 
   const handleChange = (e) => {
     setFormFields({ ...formFields, [e.target.name]: e.target.value });
@@ -28,7 +45,7 @@ export default function CreatePost() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    API.POST(API.ENDPOINTS.allPosts, formFields, API.getHeaders())
+    API.PUT(API.ENDPOINTS.singlePost(id), formFields, API.getHeaders())
       .then(({ data }) => navigate(`/posts/${data._id}`))
       .catch((error) => console.error(error));
   };
@@ -50,10 +67,12 @@ export default function CreatePost() {
           alignItems: 'center'
         }}
       >
-        <h1>Add a New Post</h1>
+        <h1>Editing Post:</h1>
+        <h2>{singlePost?.topic}</h2>
         <form onSubmit={handleSubmit}>
           <div>
             <TextField
+              autoFocus={true}
               label='Topic'
               placeholder='Your post topic'
               id='topic'
@@ -98,7 +117,7 @@ export default function CreatePost() {
           >
             {tick ? (
               <Button type='submit' variant='contained' endIcon={<PostAdd />}>
-                Create Post
+                Update Post
               </Button>
             ) : (
               <Button
@@ -107,7 +126,7 @@ export default function CreatePost() {
                 endIcon={<PostAdd />}
                 disabled
               >
-                Create Post
+                Update Post
               </Button>
             )}
           </Box>
