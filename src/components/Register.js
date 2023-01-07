@@ -4,6 +4,8 @@ import { AUTH } from '../lib/auth';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Register.scss';
 
+import { NOTIFY } from '../lib/notifications';
+
 import { Container, Box, TextField, Button, IconButton } from '@mui/material';
 
 import {
@@ -72,7 +74,7 @@ export default function Register() {
 
       AUTH.setToken(loginData.data.token);
 
-      console.log('Logged in!');
+      NOTIFY.SUCCESS(`Welcome to the Forum, ${formFields.username}!`);
       navigate('/');
     } catch (error) {
       console.error(error);
