@@ -4,6 +4,7 @@ import { PostLikes } from './common/PostLikes';
 import { API } from '../lib/api';
 import { AUTH } from '../lib/auth';
 import CommentThread from './common/CommentThread';
+import { useAuthenticated } from '../hooks/useAuthenticated';
 
 import {
   Container,
@@ -19,6 +20,7 @@ import {
 import '../styles/SinglePost.scss';
 
 export const DisplayPost = ({ id, setPostsUpdated }) => {
+  const [isLoggedIn] = useAuthenticated();
   const [singlePost, setSinglePost] = useState(null);
   const [newCommentFormFields, setNewCommentFormFields] = useState({
     text: ''
@@ -128,25 +130,27 @@ export const DisplayPost = ({ id, setPostsUpdated }) => {
                 />
               </div>
             </div>
-            <div className='post-actions'>
-              <Link to={`/posts/${id}/edit`}>
+            {isLoggedIn && (
+              <div className='post-actions'>
+                <Link to={`/posts/${id}/edit`}>
+                  <Button
+                    size='small'
+                    onClick={handleEditPost}
+                    variant='contained'
+                  >
+                    Edit Post
+                  </Button>
+                </Link>
                 <Button
                   size='small'
-                  onClick={handleEditPost}
+                  color='error'
+                  onClick={handleDeleteAlertOpen}
                   variant='contained'
                 >
-                  Edit Post
+                  Delete Post
                 </Button>
-              </Link>
-              <Button
-                size='small'
-                color='error'
-                onClick={handleDeleteAlertOpen}
-                variant='contained'
-              >
-                Delete Post
-              </Button>
-            </div>
+              </div>
+            )}
           </Box>
           <div className='comments-container'>
             <form onSubmit={handleNewCommentSubmit}>
