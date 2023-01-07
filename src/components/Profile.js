@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { API } from '../lib/api';
 import { AUTH } from '../lib/auth';
+import { NOTIFY } from '../lib/notifications';
 
 import { Container, List, Button, Box, Paper, TextField } from '@mui/material';
 
@@ -41,24 +42,37 @@ export default function Profile() {
     console.log(formFields);
   };
 
-  // const handleFileChange = (event) => {
-  //   event.preventDefault();
-  //   setFile(event.target.files[0]);
-  // };
+  const handleFileChange = (event) => {
+    event.preventDefault();
+    setFile(event.target.files[0]);
+  };
 
   const handleSaveChanges = async (event) => {
     event.preventDefault();
-    // const imageData = new FormData();
-    // imageData.append('file', file);
-    // imageData.append(
-    //   'upload_preset',
-    //   process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET
-    // );
+
+    const imageData = new FormData();
+    imageData.append('file', file);
+    imageData.append(
+      'upload_preset',
+      process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET
+    );
+
     try {
-      console.log(formFields);
+      const cloudinaryResponse = await API.POST(
+        API.ENDPOINTS.cloudinary,
+        imageData
+      );
+
+      const imageId = cloudinaryResponse.data.public_id;
+
+      const apiReqBody = {
+        ...formFields,
+        cloudinaryImageId: imageId
+      };
+
       await API.PUT(
         API.ENDPOINTS.singleUser(userData?._id),
-        formFields,
+        apiReqBody,
         API.getHeaders()
       );
 
@@ -70,7 +84,8 @@ export default function Profile() {
       AUTH.setToken(loginData.data.token);
 
       console.log('Logged in!');
-      navigate('/');
+      NOTIFY.SUCCESS('User profile updated!');
+      navigate(`/`);
     } catch (error) {
       console.error(error);
     }
@@ -165,7 +180,7 @@ export default function Profile() {
                 onChange={handleChange}
                 required
               />
-              {/* <h4>Upload a new profile picture:</h4>
+              <h4>Upload a new profile picture:</h4>
               <TextField
                 id='profile-picture'
                 name='profile-picture'
@@ -173,7 +188,7 @@ export default function Profile() {
                 variant='standard'
                 onChange={handleFileChange}
                 required
-              /> */}
+              />
             </>
           ) : (
             <>
@@ -187,25 +202,27 @@ export default function Profile() {
               <p>User ID: {userData?._id}</p>
             </>
           )}
+          {AUTH.isOwner(userData?._id) && (
+            <>
+              {isEditMode ? (
+                <>
+                  <Box>
+                    <Button onClick={handleSaveChanges}>Save Changes</Button>
+                    <Button onClick={toggleEditMode}>Cancel</Button>
+                  </Box>
+                </>
+              ) : (
+                <Button onClick={toggleEditMode}>Edit Profile</Button>
+              )}
+            </>
+          )}
         </Paper>
-        {AUTH.isOwner(userData?._id) && (
-          <>
-            {isEditMode ? (
-              <>
-                <Button onClick={handleSaveChanges}>Save Changes</Button>
-                <Button onClick={toggleEditMode}>Cancel</Button>
-              </>
-            ) : (
-              <Button onClick={toggleEditMode}>Edit Profile</Button>
-            )}
-          </>
-        )}
+
         <Box
           sx={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            mt: 5,
             mb: 10
           }}
         >
