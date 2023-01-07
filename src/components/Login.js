@@ -10,6 +10,7 @@ import {
   VisibilityOutlined,
   VisibilityOffOutlined
 } from '@mui/icons-material';
+import { NOTIFY } from '../lib/notifications';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -29,7 +30,9 @@ export default function Login() {
     event.preventDefault();
     try {
       API.POST(API.ENDPOINTS.login, formFields).then(({ data }) => {
+        console.log(data);
         AUTH.setToken(data.token);
+        NOTIFY.SUCCESS(data.message);
         navigate('/posts');
         console.log('Successfully logged in');
       });
