@@ -11,6 +11,7 @@ import '../../styles/PostLikes.scss';
 export const PostLikes = ({
   storedLikes,
   storedDislikes,
+  isButtonDisabled,
   setIsContentUpdated,
   setPostsUpdated,
   userData,
@@ -51,28 +52,47 @@ export const PostLikes = ({
 
   return (
     <Box className='PostLikes'>
-      <Button
-        onClick={handleLike}
-        sx={{ pt: padding, pb: padding, pl: padding }}
-      >
-        {userData?.likedPosts?.includes(id) ? (
-          <ThumbUpIcon color='success' sx={{ height: iconSize }} />
-        ) : (
-          <ThumbUpOutlinedIcon sx={{ height: iconSize }} />
-        )}
-        {`${storedLikes}`}
-      </Button>
-      <Button
-        onClick={handleDislike}
-        sx={{ pt: padding, pb: padding, pl: padding }}
-      >
-        {userData?.dislikedPosts?.includes(id) ? (
-          <ThumbDownIcon color='error' sx={{ height: iconSize }} />
-        ) : (
-          <ThumbDownOutlinedIcon sx={{ height: iconSize }} />
-        )}
-        {`${storedDislikes}`}
-      </Button>
+      {isButtonDisabled ? (
+        <>
+          {userData?.likedPosts?.includes(id) ? (
+            <ThumbUpIcon color='success' sx={{ height: iconSize }} />
+          ) : (
+            <ThumbUpOutlinedIcon sx={{ height: iconSize }} />
+          )}
+          {`${storedLikes}`}
+          {userData?.dislikedPosts?.includes(id) ? (
+            <ThumbDownIcon color='error' sx={{ height: iconSize }} />
+          ) : (
+            <ThumbDownOutlinedIcon sx={{ height: iconSize }} />
+          )}
+          {`${storedDislikes}`}
+        </>
+      ) : (
+        <>
+          <Button
+            onClick={handleLike}
+            sx={{ pt: padding, pb: padding, pl: padding }}
+          >
+            {userData?.likedPosts?.includes(id) ? (
+              <ThumbUpIcon color='success' sx={{ height: iconSize }} />
+            ) : (
+              <ThumbUpOutlinedIcon sx={{ height: iconSize }} />
+            )}
+            {`${storedLikes}`}
+          </Button>
+          <Button
+            onClick={handleDislike}
+            sx={{ pt: padding, pb: padding, pl: padding }}
+          >
+            {userData?.dislikedPosts?.includes(id) ? (
+              <ThumbDownIcon color='error' sx={{ height: iconSize }} />
+            ) : (
+              <ThumbDownOutlinedIcon sx={{ height: iconSize }} />
+            )}
+            {`${storedDislikes}`}
+          </Button>
+        </>
+      )}
     </Box>
   );
 };

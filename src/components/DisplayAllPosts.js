@@ -54,6 +54,7 @@ export const DisplayAllPosts = ({
           setPostsUpdated={setPostsUpdated}
           userData={userData}
           id={post._id}
+          isButtonDisabled={true}
         />
       </Item>
     </Box>
