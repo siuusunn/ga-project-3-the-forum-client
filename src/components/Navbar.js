@@ -77,7 +77,7 @@ export default function Navbar({ searchedPosts, setSearchedPosts }) {
           }}
           style={{ textAlign: 'center' }}
         >
-          <h2>Forum</h2>
+          <h2>The Forum</h2>
         </MenuItem>
 
         <Divider />
