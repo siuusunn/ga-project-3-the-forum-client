@@ -27,12 +27,8 @@ import {
 
 import { Link, useNavigate } from "react-router-dom";
 import { AUTH } from "../lib/auth";
-
-
 import { Divider } from '@mui/material';
 
-import { Link, useNavigate } from 'react-router-dom';
-import { AUTH } from '../lib/auth';
 
 const devLinks = {
   GitHub: {
@@ -187,4 +183,3 @@ export default function Navbar({ searchedPosts, setSearchedPosts }) {
     </Sidebar>
   );
 };
-export default Navbar;
