@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-
 import { NOTIFY } from '../lib/notifications';
 import { API } from '../lib/api';
 import { DisplayPost } from './DisplayPost';
+import { AUTH } from '../lib/auth';
 
 import { DisplayAllPosts } from './DisplayAllPosts';
 import DefaultLandingComponent from './DefaultLandingComponent';
@@ -15,6 +15,7 @@ export default function PostsIndex() {
   const [posts, setPosts] = useState(null);
   const [id, setId] = useState(null);
   const [postsUpdated, setPostsUpdated] = useState(false);
+  const [userData, setUserData] = useState(null);
 
   useEffect(() => {
     API.GET(API.ENDPOINTS.allPosts)
@@ -26,6 +27,17 @@ export default function PostsIndex() {
         console.error(message, response);
       });
 
+    if (AUTH.getPayload().userId) {
+      API.GET(API.ENDPOINTS.singleUser(AUTH.getPayload().userId))
+        .then(({ data }) => {
+          setUserData(data);
+          console.log(data);
+        })
+        .catch(({ message, response }) => {
+          NOTIFY.ERROR(message);
+          console.error(message, response);
+        });
+    }
     setPostsUpdated(false);
   }, [postsUpdated]);
 
@@ -45,6 +57,8 @@ export default function PostsIndex() {
             post={post}
             selectedId={selectedId}
             postingTime={post.createdAt}
+            setPostsUpdated={setPostsUpdated}
+            userData={userData}
           />
         ))}
       </div>
@@ -56,7 +70,11 @@ export default function PostsIndex() {
         sx={{ marginLeft: '12px', marginTop: '20px', width: '50%' }}
       >
         {id ? (
-          <DisplayPost id={id} setPostsUpdated={setPostsUpdated} />
+          <DisplayPost
+            id={id}
+            setPostsUpdated={setPostsUpdated}
+            userData={userData}
+          />
         ) : (
           <DefaultLandingComponent />
         )}

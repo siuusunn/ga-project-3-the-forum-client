@@ -7,7 +7,13 @@ import moment from 'moment/moment';
 
 import '../styles/DisplayPosts.scss';
 
-export const DisplayAllPosts = ({ post, selectedId, postingTime }) => {
+export const DisplayAllPosts = ({
+  post,
+  selectedId,
+  postingTime,
+  setPostsUpdated,
+  userData
+}) => {
   const handleClick = () => {
     selectedId(post._id);
   };
@@ -45,6 +51,9 @@ export const DisplayAllPosts = ({ post, selectedId, postingTime }) => {
           storedDislikes={post.dislikes}
           iconSize={15}
           padding={0}
+          setPostsUpdated={setPostsUpdated}
+          userData={userData}
+          id={post._id}
         />
       </Item>
     </Box>
