@@ -1,12 +1,9 @@
 import { useEffect, useState } from 'react';
-import { ReactNotifications } from 'react-notifications-component';
 
 import { NOTIFY } from '../lib/notifications';
 import { API } from '../lib/api';
 import { DisplayPost } from './DisplayPost';
 
-import { PostLikes } from './common/PostLikes';
-import { SinglePost } from './SinglePost';
 import { DisplayAllPosts } from './DisplayAllPosts';
 import DefaultLandingComponent from './DefaultLandingComponent';
 
@@ -36,14 +33,6 @@ export default function PostsIndex() {
     setId(postId);
   };
 
-  const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : 'lightYellow',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary
-  }));
-
   return (
     <Box
       className='PostsIndex'
@@ -51,7 +40,12 @@ export default function PostsIndex() {
     >
       <div className='grid-left'>
         {posts?.map((post) => (
-          <DisplayAllPosts key={post._id} post={post} selectedId={selectedId} />
+          <DisplayAllPosts
+            key={post._id}
+            post={post}
+            selectedId={selectedId}
+            postingTime={post.createdAt}
+          />
         ))}
       </div>
       <Grid
