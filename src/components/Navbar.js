@@ -17,6 +17,7 @@ import {
   HowToRegOutlined,
   LogoutOutlined,
   AccountCircleOutlined,
+  SearchOffRounded,
   InfoOutlined,
   Add,
   GitHub,
@@ -75,6 +76,12 @@ const Navbar = ({ searchedPosts, setSearchedPosts }) => {
               Profile
             </MenuItem>
             <MenuItem
+              icon={<SearchOffRounded />}
+              routerLink={<Link to="/posts/search" />}
+            >
+              Search
+            </MenuItem>
+            <MenuItem
               icon={<LogoutOutlined />}
               routerLink={<Link to="/" />}
               onClick={logout}
@@ -96,12 +103,6 @@ const Navbar = ({ searchedPosts, setSearchedPosts }) => {
             >
               Register
             </MenuItem>
-            {/* <MenuItem
-              icon={<HowToSearchOutlined />}
-              routerLink={<Link to="/posts/search" />}
-            >
-              Search
-            </MenuItem> */}
           </>
         )}
         <SubMenu label="Dev Info" icon={<InfoOutlined />}>
@@ -163,10 +164,10 @@ const Navbar = ({ searchedPosts, setSearchedPosts }) => {
               >
                 LinkedIn
               </a>
-              <Search
+              {/* <Search
                 handleSearchChange={setSearchedPosts}
                 searchedPosts={searchedPosts}
-              />
+              /> */}
             </MenuItem>
           </SubMenu>
         </SubMenu>

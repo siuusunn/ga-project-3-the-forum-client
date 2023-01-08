@@ -14,6 +14,7 @@ import CommentThread from "./components/common/CommentThread";
 
 import "./styles/App.css";
 import "react-toastify/dist/ReactToastify.css";
+import Search from "./components/common/Search";
 
 window.Buffer = window.Buffer || require("buffer").Buffer;
 
@@ -37,6 +38,7 @@ function App() {
           <Route path="/profile/:id" element={<Profile />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/posts/search" element={<Search />} />
         </Routes>
       </Router>
       <ToastContainer />
