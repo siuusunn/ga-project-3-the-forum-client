@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { API } from '../../lib/api';
+import { API } from '../lib/api';
 
 import {
   Card,

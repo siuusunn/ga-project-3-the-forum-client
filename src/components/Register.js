@@ -3,10 +3,18 @@ import { API } from '../lib/api';
 import { AUTH } from '../lib/auth';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Register.scss';
+import adminPic from '../assets/adminPic.png';
 
 import { NOTIFY } from '../lib/notifications';
 
-import { Container, Box, TextField, Button, IconButton } from '@mui/material';
+import {
+  Container,
+  Box,
+  TextField,
+  Button,
+  IconButton,
+  Avatar
+} from '@mui/material';
 
 import {
   AccountCircleOutlined,
@@ -99,6 +107,28 @@ export default function Register() {
             alignItems: 'center'
           }}
         >
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              mb: 4,
+              mt: 4
+            }}
+          >
+            <Avatar
+              src={adminPic}
+              alt='admin-profile-picture'
+              sx={{ width: 200, height: 200, mr: 4 }}
+            />
+            <div class='speech left'>
+              <p>
+                Hello and welcome to the Forum. I am the very loved and
+                respected administrator of this forum, and I am very glad that
+                you are joining us in this lovable and respectful platform.
+              </p>
+            </div>
+          </Box>
           <h1>Register</h1>
           <form onSubmit={handleSubmit}>
             <Box

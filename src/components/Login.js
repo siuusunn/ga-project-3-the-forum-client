@@ -1,9 +1,19 @@
 import { useState } from 'react';
 import { API } from '../lib/api';
 import { AUTH } from '../lib/auth';
+import adminPic from '../assets/adminPic.png';
+import '../styles/Login.scss';
+
 import { useNavigate } from 'react-router-dom';
 
-import { Container, Box, TextField, Button, IconButton } from '@mui/material';
+import {
+  Container,
+  Box,
+  TextField,
+  Button,
+  IconButton,
+  Avatar
+} from '@mui/material';
 import {
   EmailOutlined,
   PasswordOutlined,
@@ -64,6 +74,28 @@ export default function Login() {
             alignItems: 'center'
           }}
         >
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              mb: 4,
+              mt: 4
+            }}
+          >
+            <Avatar
+              src={adminPic}
+              alt='admin-profile-picture'
+              sx={{ width: 200, height: 200, mr: 4 }}
+            />
+            <div class='speech left'>
+              <p>
+                Hello again and welcome back. Once again it's me, the very loved
+                and respected administrator of this forum. I am very excited to
+                see you back on this lovable and respectful platform.
+              </p>
+            </div>
+          </Box>
           <h1>Login</h1>
           <form onSubmit={handleSubmit}>
             <Box

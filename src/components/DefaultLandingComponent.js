@@ -1,8 +1,10 @@
 import adminPic from '../assets/adminPic.png';
 
-import { Container, Avatar, Box } from '@mui/material';
+import { Container, Box, Avatar } from '@mui/material';
 
 const DefaultLandingComponent = () => {
+  console.log(adminPic);
+
   return (
     <Container maxWidth='sm' sx={{ mt: 15 }}>
       <Box
