@@ -129,6 +129,7 @@ export const DisplayPost = ({ id, setPostsUpdated, userData }) => {
                   setIsContentUpdated={setIsContentUpdated}
                   setPostsUpdated={setPostsUpdated}
                   userData={userData}
+                  isButtonDisabled={false}
                 />
               </div>
             </div>
