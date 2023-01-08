@@ -24,12 +24,43 @@ import {
   LinkedIn,
 } from "@mui/icons-material";
 
+
 import { Link, useNavigate } from "react-router-dom";
 import { AUTH } from "../lib/auth";
 
-const Navbar = ({ searchedPosts, setSearchedPosts }) => {
+
+import { Divider } from '@mui/material';
+
+import { Link, useNavigate } from 'react-router-dom';
+import { AUTH } from '../lib/auth';
+
+const devLinks = {
+  GitHub: {
+    siuusunn: 'https://github.com/siuusunn/',
+    ljsgrant: 'https://github.com/ljsgrant/',
+    ParulSingh16: 'https://github.com/ParulSingh16/'
+  },
+  LinkedIn: {
+    siuusunn: 'https://www.linkedin.com/in/alice-lo-09921896/',
+    ljsgrant: 'https://www.linkedin.com/in/louisgrant/',
+    ParulSingh16: 'https://www.linkedin.com/in/parul-singh-b330b5204/'
+  }
+};
+
+export default function Navbar({ searchedPosts, setSearchedPosts }) {
+
   const [isLoggedIn, setIsLoggedIn] = useAuthenticated();
   const navigate = useNavigate();
+
+  const redirectLink = (siteName, url) => {
+    return (
+      <>
+        <a href={url} target='_blank' rel='noreferrer'>
+          {siteName}
+        </a>
+      </>
+    );
+  };
 
   const logout = () => {
     AUTH.deleteToken();
@@ -40,7 +71,13 @@ const Navbar = ({ searchedPosts, setSearchedPosts }) => {
   const { collapseSidebar } = useProSidebar();
 
   return (
-    <Sidebar style={{ height: "100vh" }}>
+
+    <Sidebar
+      style={{
+        height: '100vh'
+      }}
+    >
+
       <Menu>
         <MenuItem
           icon={<MenuOutlined />}
@@ -51,7 +88,10 @@ const Navbar = ({ searchedPosts, setSearchedPosts }) => {
         >
           <h2>Forum</h2>
         </MenuItem>
-        <MenuItem icon={<HomeOutlined />} routerLink={<Link to="/" />}>
+
+        <Divider />
+        <MenuItem icon={<HomeOutlined />} routerLink={<Link to='/' />}>
+
           Home
         </MenuItem>
         <MenuItem
@@ -66,7 +106,7 @@ const Navbar = ({ searchedPosts, setSearchedPosts }) => {
         >
           Add a New Post
         </MenuItem>
-
+        <Divider />
         {isLoggedIn ? (
           <>
             <MenuItem
@@ -105,69 +145,41 @@ const Navbar = ({ searchedPosts, setSearchedPosts }) => {
             </MenuItem>
           </>
         )}
-        <SubMenu label="Dev Info" icon={<InfoOutlined />}>
-          <SubMenu label="siuusunn" icon={<Add />}>
+
+        <Divider />
+        <SubMenu label='Dev Info' icon={<InfoOutlined />}>
+          <SubMenu label='siuusunn' icon={<Add />}>
             <MenuItem icon={<GitHub />}>
-              <a
-                href="https://github.com/siuusunn/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Github
-              </a>
+              {redirectLink('GitHub', devLinks.GitHub.siuusunn)}
             </MenuItem>
             <MenuItem icon={<LinkedIn />}>
-              <a
-                href="https://www.linkedin.com/in/alice-lo-09921896/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                LinkedIn
-              </a>
+              {redirectLink('LinkedIn', devLinks.LinkedIn.siuusunn)}
+
             </MenuItem>
           </SubMenu>
           <SubMenu label="ljsgrant" icon={<Add />}>
             <MenuItem icon={<GitHub />}>
-              <a
-                href="https://github.com/ljsgrant/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Github
-              </a>
+
+              {redirectLink('GitHub', devLinks.GitHub.ljsgrant)}
             </MenuItem>
             <MenuItem icon={<LinkedIn />}>
-              <a
-                href="https://www.linkedin.com/in/louisgrant/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                LinkedIn
-              </a>
+              {redirectLink('LinkedIn', devLinks.LinkedIn.ljsgrant)}
+
             </MenuItem>
           </SubMenu>
           <SubMenu label="ParulSingh16" icon={<Add />}>
             <MenuItem icon={<GitHub />}>
-              <a
-                href="https://github.com/ParulSingh16/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Github
-              </a>
-            </MenuItem>
-            <MenuItem icon={<LinkedIn />}>
-              <a
-                href="https://www.linkedin.com/in/parul-singh-b330b5204/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                LinkedIn
-              </a>
+
               {/* <Search
                 handleSearchChange={setSearchedPosts}
                 searchedPosts={searchedPosts}
               /> */}
+
+              {redirectLink('GitHub', devLinks.GitHub.ParulSingh16)}
+            </MenuItem>
+            <MenuItem icon={<LinkedIn />}>
+              {redirectLink('LinkedIn', devLinks.LinkedIn.ParulSingh16)}
+
             </MenuItem>
           </SubMenu>
         </SubMenu>

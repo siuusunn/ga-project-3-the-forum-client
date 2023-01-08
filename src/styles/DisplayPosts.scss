@@ -1,18 +1,23 @@
 .DisplayPosts {
-  margin-bottom: 2px;
+  margin-bottom: 8px;
   cursor: pointer;
   .post-topic {
     text-align: left;
     width: 100%;
     background-color: white;
     border: 1px solid rgba(128, 128, 128, 0.303);
-    p {
-      margin: 5px 5px 5px 10px;
+    border-radius: 5px;
+
+    .post-topic-name {
+      padding-left: 6px;
+      margin: 5px;
     }
   }
   .postedby-wrapper {
+    margin-top: 5px;
+    margin-bottom: 5px;
     display: flex;
-    padding-left: 15px;
+    padding-left: 12px;
     p {
       margin: 0px;
     }

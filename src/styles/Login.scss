@@ -1,5 +1,5 @@
 .speech {
-  font-size: 1em;
+  font-size: 0.9em;
 
   /* (A2) COLORS */
   color: black;
@@ -26,7 +26,7 @@
 /* (C2) LEFT */
 .left.speech::after {
   /* (C2-1) LEFT TRIANGLE */
-  border-right-color: lightgray;
+  border-right-color: lightgrey;
   border-left: 0;
 
   /* (C2-2) POSITION AT LEFT */
