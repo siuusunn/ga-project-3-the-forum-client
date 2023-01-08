@@ -40,7 +40,12 @@ export const DisplayAllPosts = ({ post, selectedId, postingTime }) => {
             {moment(post?.createdAt).fromNow()}
           </p>
         </div>
-        <PostLikes storedLikes={post.likes} storedDislikes={post.dislikes} />
+        <PostLikes
+          storedLikes={post.likes}
+          storedDislikes={post.dislikes}
+          iconSize={15}
+          padding={0}
+        />
       </Item>
     </Box>
   );

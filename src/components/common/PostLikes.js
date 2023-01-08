@@ -1,16 +1,18 @@
 import { useState } from 'react';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
-import { Container, Button } from '@mui/material';
+import { Container, Button, Box } from '@mui/material';
 import { API } from '../../lib/api';
 
-import '../../styles/PostLikes.scss'
+import '../../styles/PostLikes.scss';
 
 export const PostLikes = ({
   storedLikes,
   storedDislikes,
   setIsContentUpdated,
-  id
+  id,
+  iconSize,
+  padding
 }) => {
   const [likes, setLikes] = useState(storedLikes);
   const [dislikes, setDislikes] = useState(storedDislikes);
@@ -44,15 +46,21 @@ export const PostLikes = ({
   };
 
   return (
-    <div className="PostLikes">
-      <Button onClick={handleLike}>
-        <ThumbUpIcon />
+    <Box className='PostLikes'>
+      <Button
+        onClick={handleLike}
+        sx={{ pt: padding, pb: padding, pl: padding }}
+      >
+        <ThumbUpIcon sx={{ height: iconSize }} />
         {`${storedLikes}`}
       </Button>
-      <Button onClick={handleDislike}>
-        <ThumbDownIcon />
+      <Button
+        onClick={handleDislike}
+        sx={{ pt: padding, pb: padding, pl: padding }}
+      >
+        <ThumbDownIcon sx={{ height: iconSize }} />
         {`${storedDislikes}`}
       </Button>
-    </div>
+    </Box>
   );
 };
