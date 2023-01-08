@@ -302,12 +302,20 @@ export default function Profile() {
               {isEditMode ? (
                 <>
                   <Box>
-                    <Button onClick={handleSaveChanges}>Save Changes</Button>
-                    <Button onClick={toggleEditMode}>Cancel</Button>
+                    <Button
+                      onClick={handleSaveChanges}
+                      variant='contained'
+                      sx={{ mr: 2 }}
+                    >
+                      Save Changes
+                    </Button>
+                    <Button onClick={toggleEditMode} variant='outlined'>
+                      Cancel
+                    </Button>
                   </Box>
                 </>
               ) : (
-                <Button onClick={toggleEditMode}>
+                <Button onClick={toggleEditMode} variant='outlined'>
                   Edit Profile & Password
                 </Button>
               )}

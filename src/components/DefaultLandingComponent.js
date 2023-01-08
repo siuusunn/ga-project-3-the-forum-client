@@ -25,7 +25,7 @@ const DefaultLandingComponent = () => {
             Hello, I'm the very loved and respected administrator of this forum.
           </h3>
           <p>
-            Starting browsing posts by clicking on the post titles on the left.
+            Start browsing posts by clicking on the post titles on the left.
           </p>
           <p>
             Or make your own post by clicking "Add a New Post" on the sidebar!

@@ -12,7 +12,8 @@ import {
   TextField,
   Button,
   IconButton,
-  Avatar
+  Avatar,
+  Paper
 } from '@mui/material';
 import {
   EmailOutlined,
@@ -74,19 +75,20 @@ export default function Login() {
             alignItems: 'center'
           }}
         >
+          <h1>Login</h1>
           <Box
             sx={{
               display: 'flex',
               flexDirection: 'row',
               alignItems: 'center',
               mb: 4,
-              mt: 4
+              mt: 1
             }}
           >
             <Avatar
               src={adminPic}
               alt='admin-profile-picture'
-              sx={{ width: 200, height: 200, mr: 4 }}
+              sx={{ width: 160, height: 160, mr: 4 }}
             />
             <div class='speech left'>
               <p>
@@ -96,83 +98,100 @@ export default function Login() {
               </p>
             </div>
           </Box>
-          <h1>Login</h1>
-          <form onSubmit={handleSubmit}>
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'flex-end',
-                justifyContent: 'center',
-                width: 350,
-                mb: 2
-              }}
-            >
-              <EmailOutlined sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
-              <TextField
-                fullWidth
-                id='email'
-                name='email'
-                label='Email'
-                type='email'
-                variant='standard'
-                onChange={handleChange}
-                required
-              />
-            </Box>
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'flex-end',
-                justifyContent: 'center'
-              }}
-            >
-              <PasswordOutlined
-                sx={{ color: 'action.active', mr: 1, my: 0.5 }}
-              />
-              <TextField
-                fullWidth
-                id='password'
-                name='password'
-                label='Password'
-                type={showPassword ? 'text' : 'password'}
-                variant='standard'
-                onChange={handleChange}
-                required
-              />
-
-              <IconButton
-                aria-label='toggle-password-visibility'
-                onClick={handleClickShowPassword}
-                onMouseDown={handleMouseDownPassword}
-                edge='end'
+          <Paper
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: 350,
+              mb: 2,
+              pt: 5,
+              pb: 4,
+              pl: 10,
+              pr: 10
+            }}
+            elevation={4}
+          >
+            <form onSubmit={handleSubmit}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'flex-end',
+                  justifyContent: 'center',
+                  width: 350,
+                  mb: 2
+                }}
               >
-                {showPassword ? (
-                  <VisibilityOffOutlined />
-                ) : (
-                  <VisibilityOutlined />
-                )}
-              </IconButton>
-            </Box>
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexDirection: 'column'
-              }}
-            ></Box>
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'flex-end',
-                justifyContent: 'center'
-              }}
-            >
-              <Button type='submit' variant='contained' sx={{ mt: 5 }}>
-                Log In
-              </Button>
-            </Box>
-          </form>
+                <EmailOutlined
+                  sx={{ color: 'action.active', mr: 1, my: 0.5 }}
+                />
+                <TextField
+                  fullWidth
+                  id='email'
+                  name='email'
+                  label='Email'
+                  type='email'
+                  variant='standard'
+                  onChange={handleChange}
+                  required
+                />
+              </Box>
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'flex-end',
+                  justifyContent: 'center'
+                }}
+              >
+                <PasswordOutlined
+                  sx={{ color: 'action.active', mr: 1, my: 0.5 }}
+                />
+                <TextField
+                  fullWidth
+                  id='password'
+                  name='password'
+                  label='Password'
+                  type={showPassword ? 'text' : 'password'}
+                  variant='standard'
+                  onChange={handleChange}
+                  required
+                />
+
+                <IconButton
+                  aria-label='toggle-password-visibility'
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge='end'
+                >
+                  {showPassword ? (
+                    <VisibilityOffOutlined />
+                  ) : (
+                    <VisibilityOutlined />
+                  )}
+                </IconButton>
+              </Box>
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexDirection: 'column'
+                }}
+              ></Box>
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'flex-end',
+                  justifyContent: 'center'
+                }}
+              >
+                <Button type='submit' variant='contained' sx={{ mt: 5 }}>
+                  Log In
+                </Button>
+              </Box>
+            </form>
+          </Paper>
         </Box>
       </Container>
     </>

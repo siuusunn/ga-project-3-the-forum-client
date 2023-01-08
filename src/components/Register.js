@@ -13,7 +13,8 @@ import {
   TextField,
   Button,
   IconButton,
-  Avatar
+  Avatar,
+  Paper
 } from '@mui/material';
 
 import {
@@ -107,19 +108,20 @@ export default function Register() {
             alignItems: 'center'
           }}
         >
+          <h1>Register</h1>
           <Box
             sx={{
               display: 'flex',
               flexDirection: 'row',
               alignItems: 'center',
               mb: 4,
-              mt: 4
+              mt: 1
             }}
           >
             <Avatar
               src={adminPic}
               alt='admin-profile-picture'
-              sx={{ width: 200, height: 200, mr: 4 }}
+              sx={{ width: 160, height: 160, mr: 4 }}
             />
             <div class='speech left'>
               <p>
@@ -129,129 +131,163 @@ export default function Register() {
               </p>
             </div>
           </Box>
-          <h1>Register</h1>
-          <form onSubmit={handleSubmit}>
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'flex-end',
-                justifyContent: 'center',
-                mt: 2,
-                mb: 2
-              }}
-            >
-              <AccountCircleOutlined
-                sx={{ color: 'action.active', mr: 1, my: 0.5 }}
-              />
-              <TextField
-                fullWidth
-                id='username'
-                name='username'
-                label='Username'
-                type='text'
-                variant='standard'
-                onChange={handleChange}
-                required
-              />
-            </Box>
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'flex-end',
-                justifyContent: 'center',
-                mb: 2
-              }}
-            >
-              <EmailOutlined sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
-              <TextField
-                fullWidth
-                id='email'
-                name='email'
-                label='Email'
-                type='email'
-                variant='standard'
-                onChange={handleChange}
-                required
-              />
-            </Box>
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'flex-end',
-                justifyContent: 'center',
-                mb: 2
-              }}
-            >
-              <PasswordOutlined
-                sx={{ color: 'action.active', mr: 1, my: 0.5 }}
-              />
-              <TextField
-                fullWidth
-                id='password'
-                name='password'
-                label='Password'
-                type={showPassword ? 'text ' : 'password'}
-                variant='standard'
-                onChange={handleChange}
-                required
-              />
-              <IconButton
-                aria-label='toggle-password-visibility'
-                onClick={handleClickShowPassword}
-                onMouseDown={handleMouseDownPassword}
-                edge='end'
+          <Paper
+            elevation={6}
+            sx={{
+              pt: 5,
+              pb: 4,
+              pl: 10,
+              pr: 10,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              mb: 5
+            }}
+          >
+            <form onSubmit={handleSubmit}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'flex-end',
+                  justifyContent: 'center',
+                  mt: 2,
+                  mb: 2
+                }}
               >
-                {showPassword ? (
-                  <VisibilityOffOutlined />
-                ) : (
-                  <VisibilityOutlined />
-                )}
-              </IconButton>
-            </Box>
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'flex-end',
-                justifyContent: 'center',
-                mb: 2
-              }}
-            >
-              <PasswordOutlined
-                sx={{ color: 'action.active', mr: 1, my: 0.5 }}
-              />
-              <TextField
-                fullWidth
-                id='passwordConfirmation'
-                name='passwordConfirmation'
-                label='Password Confirmation'
-                type={showPassword ? 'text' : 'password'}
-                variant='standard'
-                onChange={handleChange}
-                required
-              />
-              <IconButton
-                aria-label='toggle-password-visibility'
-                onClick={handleClickShowPassword}
-                onMouseDown={handleMouseDownPassword}
-                edge='end'
+                <AccountCircleOutlined
+                  sx={{ color: 'action.active', mr: 1, my: 0.5 }}
+                />
+                <TextField
+                  fullWidth
+                  id='username'
+                  name='username'
+                  label='Username'
+                  type='text'
+                  variant='standard'
+                  onChange={handleChange}
+                  required
+                />
+              </Box>
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'flex-end',
+                  justifyContent: 'center',
+                  mb: 2
+                }}
               >
-                {showPassword ? (
-                  <VisibilityOffOutlined />
-                ) : (
-                  <VisibilityOutlined />
-                )}
-              </IconButton>
-            </Box>
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexDirection: 'column',
-                mb: 2
-              }}
-            >
-              <h4>Upload a Profile Picture:</h4>
+                <EmailOutlined
+                  sx={{ color: 'action.active', mr: 1, my: 0.5 }}
+                />
+                <TextField
+                  fullWidth
+                  id='email'
+                  name='email'
+                  label='Email'
+                  type='email'
+                  variant='standard'
+                  onChange={handleChange}
+                  required
+                />
+              </Box>
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'flex-end',
+                  justifyContent: 'center',
+                  mb: 2
+                }}
+              >
+                <PasswordOutlined
+                  sx={{ color: 'action.active', mr: 1, my: 0.5 }}
+                />
+                <TextField
+                  fullWidth
+                  id='password'
+                  name='password'
+                  label='Password'
+                  type={showPassword ? 'text ' : 'password'}
+                  variant='standard'
+                  onChange={handleChange}
+                  required
+                />
+                <IconButton
+                  aria-label='toggle-password-visibility'
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge='end'
+                >
+                  {showPassword ? (
+                    <VisibilityOffOutlined />
+                  ) : (
+                    <VisibilityOutlined />
+                  )}
+                </IconButton>
+              </Box>
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'flex-end',
+                  justifyContent: 'center',
+                  mb: 2
+                }}
+              >
+                <PasswordOutlined
+                  sx={{ color: 'action.active', mr: 1, my: 0.5 }}
+                />
+                <TextField
+                  fullWidth
+                  id='passwordConfirmation'
+                  name='passwordConfirmation'
+                  label='Password Confirmation'
+                  type={showPassword ? 'text' : 'password'}
+                  variant='standard'
+                  onChange={handleChange}
+                  required
+                />
+                <IconButton
+                  aria-label='toggle-password-visibility'
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge='end'
+                >
+                  {showPassword ? (
+                    <VisibilityOffOutlined />
+                  ) : (
+                    <VisibilityOutlined />
+                  )}
+                </IconButton>
+              </Box>
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexDirection: 'column',
+                  mb: 2
+                }}
+              >
+                <h4>Upload a Profile Picture:</h4>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'flex-end',
+                    justifyContent: 'center'
+                  }}
+                >
+                  <FileUploadOutlined
+                    sx={{ color: 'action.active', mr: 1, my: 0.5 }}
+                  />
+                  <TextField
+                    id='profile-picture'
+                    name='profile-picture'
+                    type='file'
+                    variant='standard'
+                    onChange={handleFileChange}
+                    required
+                  />
+                </Box>
+              </Box>
               <Box
                 sx={{
                   display: 'flex',
@@ -259,31 +295,12 @@ export default function Register() {
                   justifyContent: 'center'
                 }}
               >
-                <FileUploadOutlined
-                  sx={{ color: 'action.active', mr: 1, my: 0.5 }}
-                />
-                <TextField
-                  id='profile-picture'
-                  name='profile-picture'
-                  type='file'
-                  variant='standard'
-                  onChange={handleFileChange}
-                  required
-                />
+                <Button type='submit' variant='contained' sx={{ mt: 5 }}>
+                  Sign Up
+                </Button>
               </Box>
-            </Box>
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'flex-end',
-                justifyContent: 'center'
-              }}
-            >
-              <Button type='submit' variant='contained' sx={{ mt: 5 }}>
-                Sign Up
-              </Button>
-            </Box>
-          </form>
+            </form>
+          </Paper>
         </Box>
       </Container>
     </>
