@@ -22,7 +22,7 @@ import {
   PermIdentityOutlined
 } from '@mui/icons-material';
 
-import DisplaySinglePostOnProfile from '../components/common/DisplaySinglePostOnProfile';
+import DisplaySinglePostOnProfile from './DisplaySinglePostOnProfile';
 import ProfilePicture from './common/ProfilePicture';
 
 export default function Profile() {
@@ -142,7 +142,7 @@ export default function Profile() {
 
   const userPosts = userData?.posts;
 
-  console.log(file);
+  console.log(userData);
 
   const humanDate = new Date(userData?.createdAt).toLocaleDateString();
 
