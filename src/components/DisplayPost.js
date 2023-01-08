@@ -19,7 +19,7 @@ import {
 
 import '../styles/SinglePost.scss';
 
-export const DisplayPost = ({ id, setPostsUpdated }) => {
+export const DisplayPost = ({ id, setPostsUpdated, userData }) => {
   const [isLoggedIn] = useAuthenticated();
   const [singlePost, setSinglePost] = useState(null);
   const [newCommentFormFields, setNewCommentFormFields] = useState({
@@ -101,8 +101,6 @@ export const DisplayPost = ({ id, setPostsUpdated }) => {
 
   const humanDate = new Date(singlePost?.createdAt).toLocaleString();
 
-  console.log(singlePost);
-
   if (isPostDeleted) {
     return (
       <Container className='SinglePost'>
@@ -129,6 +127,8 @@ export const DisplayPost = ({ id, setPostsUpdated }) => {
                   storedDislikes={singlePost?.dislikes}
                   id={id}
                   setIsContentUpdated={setIsContentUpdated}
+                  setPostsUpdated={setPostsUpdated}
+                  userData={userData}
                 />
               </div>
             </div>

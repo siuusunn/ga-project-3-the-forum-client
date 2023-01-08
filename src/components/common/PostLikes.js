@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
+import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
+import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
 import { Container, Button, Box } from '@mui/material';
 import { API } from '../../lib/api';
 
@@ -10,39 +12,41 @@ export const PostLikes = ({
   storedLikes,
   storedDislikes,
   setIsContentUpdated,
+  setPostsUpdated,
+  userData,
   id,
   iconSize,
   padding
 }) => {
-  const [likes, setLikes] = useState(storedLikes);
-  const [dislikes, setDislikes] = useState(storedDislikes);
-
-  const [isClicked, setIsClicked] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+  const [isDisliked, setIsDisliked] = useState(false);
 
   const handleLike = async () => {
     API.PUT(
       API.ENDPOINTS.singlePost(id),
-      { likes: storedLikes + 1 },
+      { likeOrDislike: 'like' },
       API.getHeaders()
     )
       .then(({ data }) => {
         console.log(data);
+        setIsContentUpdated(true);
+        setPostsUpdated(true);
       })
       .catch((err) => console.error(err));
-    setIsContentUpdated(true);
   };
 
   const handleDislike = async () => {
     API.PUT(
       API.ENDPOINTS.singlePost(id),
-      { dislikes: storedDislikes + 1 },
+      { likeOrDislike: 'dislike' },
       API.getHeaders()
     )
       .then(({ data }) => {
         console.log(data);
+        setIsContentUpdated(true);
+        setPostsUpdated(true);
       })
       .catch((err) => console.error(err));
-    setIsContentUpdated(true);
   };
 
   return (
@@ -51,14 +55,22 @@ export const PostLikes = ({
         onClick={handleLike}
         sx={{ pt: padding, pb: padding, pl: padding }}
       >
-        <ThumbUpIcon sx={{ height: iconSize }} />
+        {userData?.likedPosts?.includes(id) ? (
+          <ThumbUpIcon color='success' sx={{ height: iconSize }} />
+        ) : (
+          <ThumbUpOutlinedIcon sx={{ height: iconSize }} />
+        )}
         {`${storedLikes}`}
       </Button>
       <Button
         onClick={handleDislike}
         sx={{ pt: padding, pb: padding, pl: padding }}
       >
-        <ThumbDownIcon sx={{ height: iconSize }} />
+        {userData?.dislikedPosts?.includes(id) ? (
+          <ThumbDownIcon color='error' sx={{ height: iconSize }} />
+        ) : (
+          <ThumbDownOutlinedIcon sx={{ height: iconSize }} />
+        )}
         {`${storedDislikes}`}
       </Button>
     </Box>
