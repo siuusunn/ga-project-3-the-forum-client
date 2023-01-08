@@ -1,11 +1,12 @@
+import Search from "./common/Search";
 import {
   Sidebar,
   Menu,
   MenuItem,
   useProSidebar,
-  SubMenu
-} from 'react-pro-sidebar';
-import { useAuthenticated } from '../hooks/useAuthenticated';
+  SubMenu,
+} from "react-pro-sidebar";
+import { useAuthenticated } from "../hooks/useAuthenticated";
 
 import {
   MenuOutlined,
@@ -16,11 +17,17 @@ import {
   HowToRegOutlined,
   LogoutOutlined,
   AccountCircleOutlined,
+  SearchOffRounded,
   InfoOutlined,
   Add,
   GitHub,
-  LinkedIn
-} from '@mui/icons-material';
+  LinkedIn,
+} from "@mui/icons-material";
+
+
+import { Link, useNavigate } from "react-router-dom";
+import { AUTH } from "../lib/auth";
+
 
 import { Divider } from '@mui/material';
 
@@ -40,7 +47,8 @@ const devLinks = {
   }
 };
 
-export default function Navbar() {
+export default function Navbar({ searchedPosts, setSearchedPosts }) {
+
   const [isLoggedIn, setIsLoggedIn] = useAuthenticated();
   const navigate = useNavigate();
 
@@ -57,40 +65,44 @@ export default function Navbar() {
   const logout = () => {
     AUTH.deleteToken();
     setIsLoggedIn(false);
-    navigate('/');
+    navigate("/");
   };
 
   const { collapseSidebar } = useProSidebar();
 
   return (
+
     <Sidebar
       style={{
         height: '100vh'
       }}
     >
+
       <Menu>
         <MenuItem
           icon={<MenuOutlined />}
           onClick={() => {
             collapseSidebar();
           }}
-          style={{ textAlign: 'center' }}
+          style={{ textAlign: "center" }}
         >
           <h2>Forum</h2>
         </MenuItem>
+
         <Divider />
         <MenuItem icon={<HomeOutlined />} routerLink={<Link to='/' />}>
+
           Home
         </MenuItem>
         <MenuItem
           icon={<LibraryBooksOutlined />}
-          routerLink={<Link to='/posts' />}
+          routerLink={<Link to="/posts" />}
         >
           All Posts
         </MenuItem>
         <MenuItem
           icon={<PostAddOutlined />}
-          routerLink={<Link to='/posts/create' />}
+          routerLink={<Link to="/posts/create" />}
         >
           Add a New Post
         </MenuItem>
@@ -104,8 +116,14 @@ export default function Navbar() {
               Profile
             </MenuItem>
             <MenuItem
+              icon={<SearchOffRounded />}
+              routerLink={<Link to="/posts/search" />}
+            >
+              Search
+            </MenuItem>
+            <MenuItem
               icon={<LogoutOutlined />}
-              routerLink={<Link to='/' />}
+              routerLink={<Link to="/" />}
               onClick={logout}
             >
               Log out
@@ -115,18 +133,19 @@ export default function Navbar() {
           <>
             <MenuItem
               icon={<LoginOutlined />}
-              routerLink={<Link to='/login' />}
+              routerLink={<Link to="/login" />}
             >
               Login
             </MenuItem>
             <MenuItem
               icon={<HowToRegOutlined />}
-              routerLink={<Link to='/register' />}
+              routerLink={<Link to="/register" />}
             >
               Register
             </MenuItem>
           </>
         )}
+
         <Divider />
         <SubMenu label='Dev Info' icon={<InfoOutlined />}>
           <SubMenu label='siuusunn' icon={<Add />}>
@@ -135,26 +154,37 @@ export default function Navbar() {
             </MenuItem>
             <MenuItem icon={<LinkedIn />}>
               {redirectLink('LinkedIn', devLinks.LinkedIn.siuusunn)}
+
             </MenuItem>
           </SubMenu>
-          <SubMenu label='ljsgrant' icon={<Add />}>
+          <SubMenu label="ljsgrant" icon={<Add />}>
             <MenuItem icon={<GitHub />}>
+
               {redirectLink('GitHub', devLinks.GitHub.ljsgrant)}
             </MenuItem>
             <MenuItem icon={<LinkedIn />}>
               {redirectLink('LinkedIn', devLinks.LinkedIn.ljsgrant)}
+
             </MenuItem>
           </SubMenu>
-          <SubMenu label='ParulSingh16' icon={<Add />}>
+          <SubMenu label="ParulSingh16" icon={<Add />}>
             <MenuItem icon={<GitHub />}>
+
+              {/* <Search
+                handleSearchChange={setSearchedPosts}
+                searchedPosts={searchedPosts}
+              /> */}
+
               {redirectLink('GitHub', devLinks.GitHub.ParulSingh16)}
             </MenuItem>
             <MenuItem icon={<LinkedIn />}>
               {redirectLink('LinkedIn', devLinks.LinkedIn.ParulSingh16)}
+
             </MenuItem>
           </SubMenu>
         </SubMenu>
       </Menu>
     </Sidebar>
   );
-}
+};
+export default Navbar;
