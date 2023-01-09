@@ -11,7 +11,8 @@ const ENDPOINTS = {
   login: `/api/login`,
   register: `/api/register`,
   search: (query) => `/api//posts/search?search=${query}`,
-  cloudinary: `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/image/upload`
+  cloudinary: `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/image/upload`,
+  notificationsForUser: '/api/notifications'
 };
 
 const GET = (endpoint) => axios.get(endpoint);

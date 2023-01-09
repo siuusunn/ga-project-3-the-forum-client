@@ -23,7 +23,9 @@ import {
   LinkedIn
 } from '@mui/icons-material';
 
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { API } from '../lib/api';
 import { AUTH } from '../lib/auth';
 import { Divider } from '@mui/material';
 
@@ -108,6 +110,12 @@ export default function Navbar({ searchedPosts, setSearchedPosts }) {
               routerLink={<Link to={`/profile/${AUTH.getPayload().userId}`} />}
             >
               Profile
+            </MenuItem>
+            <MenuItem
+              icon={<AccountCircleOutlined />}
+              routerLink={<Link to='/notifications' />}
+            >
+              Notifications
             </MenuItem>
             <MenuItem
               icon={<LogoutOutlined />}
