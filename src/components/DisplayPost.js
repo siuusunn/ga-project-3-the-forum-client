@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { PostLikes } from './common/PostLikes';
 import { API } from '../lib/api';
 import { AUTH } from '../lib/auth';
 import CommentThread from './common/CommentThread';
 import { useAuthenticated } from '../hooks/useAuthenticated';
+import { NOTIFY } from '../lib/notifications';
 
 import {
   Container,
@@ -26,6 +27,7 @@ import '../styles/SinglePost.scss';
 
 export const DisplayPost = ({ id, setPostsUpdated, userData }) => {
   const [isLoggedIn] = useAuthenticated();
+  const formInput = useRef(null);
   const [singlePost, setSinglePost] = useState(null);
   const [newCommentFormFields, setNewCommentFormFields] = useState({
     text: ''
@@ -66,11 +68,18 @@ export const DisplayPost = ({ id, setPostsUpdated, userData }) => {
       API.getHeaders()
     )
       .then(({ data }) => {
-        // console.log(data);
+        NOTIFY.SUCCESS('Your comment was posted!');
         setIsContentUpdated(true);
       })
       .catch((err) => console.error(err));
+
+    setNewCommentFormFields({ text: '' });
+    handleFocus();
   };
+
+  function handleFocus() {
+    formInput.current.blur();
+  }
 
   const deletePost = () => {
     console.log('delete post');
@@ -182,6 +191,7 @@ export const DisplayPost = ({ id, setPostsUpdated, userData }) => {
                   <AccordionDetails>
                     <form onSubmit={handleNewCommentSubmit}>
                       <TextField
+                        ref={formInput}
                         type='text'
                         id='comment-text'
                         name='text'
