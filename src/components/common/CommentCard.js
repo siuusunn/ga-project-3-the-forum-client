@@ -6,6 +6,7 @@ import '../../styles/CommentCard.scss';
 import blankPic from '../../assets/placeholder-profile-picture.png';
 import { useAuthenticated } from '../../hooks/useAuthenticated';
 import { AUTH } from '../../lib/auth';
+import { NOTIFY } from '../../lib/notifications';
 
 export default function CommentCard({
   text,
@@ -57,6 +58,7 @@ export default function CommentCard({
         console.log(data);
         console.log('Posted comment');
         setIsContentUpdated(true);
+        NOTIFY.SUCCESS("Posted your reply!")
       })
       .catch((err) => console.error(err));
 
@@ -77,6 +79,7 @@ export default function CommentCard({
         console.log(data);
         console.log('Deleted comment');
         setIsContentUpdated(true);
+        NOTIFY.SUCCESS("Comment was deleted.")
       })
       .catch((err) => console.error(err));
   };
