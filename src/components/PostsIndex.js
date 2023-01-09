@@ -42,13 +42,9 @@ export default function PostsIndex() {
     setPostsUpdated(false);
   }, [postsUpdated]);
 
-  const sortNewestFirst = () => {
-    
-  }
+  const sortNewestFirst = () => {};
 
-  const sortOldestFirst = () => {
-
-  }
+  const sortOldestFirst = () => {};
 
   const selectedId = (postId) => {
     setId(postId);
