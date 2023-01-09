@@ -7,7 +7,7 @@ import { AUTH } from '../lib/auth';
 import { DisplayAllPosts } from './DisplayAllPosts';
 import DefaultLandingComponent from './DefaultLandingComponent';
 
-import { Grid, Paper, Box, styled } from '@mui/material';
+import { Grid, Box, Button } from '@mui/material';
 
 import '../styles/PostsIndex.scss';
 
@@ -21,6 +21,7 @@ export default function PostsIndex() {
     API.GET(API.ENDPOINTS.allPosts)
       .then(({ data }) => {
         setPosts(data);
+        console.log(data);
       })
       .catch(({ message, response }) => {
         NOTIFY.ERROR(message);
@@ -41,6 +42,14 @@ export default function PostsIndex() {
     setPostsUpdated(false);
   }, [postsUpdated]);
 
+  const sortNewestFirst = () => {
+    
+  }
+
+  const sortOldestFirst = () => {
+
+  }
+
   const selectedId = (postId) => {
     setId(postId);
   };
@@ -51,16 +60,22 @@ export default function PostsIndex() {
       sx={{ width: '100%', display: 'flex', flexDirection: 'row' }}
     >
       <div className='grid-left'>
-        {posts?.map((post) => (
-          <DisplayAllPosts
-            key={post._id}
-            post={post}
-            selectedId={selectedId}
-            postingTime={post.createdAt}
-            setPostsUpdated={setPostsUpdated}
-            userData={userData}
-          />
-        ))}
+        <>
+          <Box>
+            <Button onClick={sortNewestFirst}>Sort by newest first</Button>
+            <Button onClick={sortOldestFirst}>Sort by oldest first</Button>
+          </Box>
+          {posts?.map((post) => (
+            <DisplayAllPosts
+              key={post._id}
+              post={post}
+              selectedId={selectedId}
+              postingTime={post.createdAt}
+              setPostsUpdated={setPostsUpdated}
+              userData={userData}
+            />
+          ))}
+        </>
       </div>
       <Grid
         className='grid-right'
