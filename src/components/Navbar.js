@@ -6,7 +6,6 @@ import {
   SubMenu
 } from 'react-pro-sidebar';
 import { useAuthenticated } from '../hooks/useAuthenticated';
-// import Search from "./common/Search";
 import {
   MenuOutlined,
   LoginOutlined,
@@ -16,7 +15,6 @@ import {
   HowToRegOutlined,
   LogoutOutlined,
   AccountCircleOutlined,
-  SearchRounded,
   InfoOutlined,
   Add,
   GitHub,
@@ -24,8 +22,10 @@ import {
 } from '@mui/icons-material';
 
 import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { AUTH } from '../lib/auth';
 import { Divider } from '@mui/material';
+import { Switch } from '@mui/material';
 
 const devLinks = {
   GitHub: {
@@ -43,6 +43,20 @@ const devLinks = {
 export default function Navbar({ searchedPosts, setSearchedPosts }) {
   const [isLoggedIn, setIsLoggedIn] = useAuthenticated();
   const navigate = useNavigate();
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
+
+  const toggleTheme = () => {
+    if (theme === 'light') {
+      setTheme('dark');
+    } else {
+      setTheme('light');
+    }
+  };
+
+  useEffect(() => {
+    localStorage.setItem('theme', theme);
+    document.body.className = theme;
+  }, [theme]);
 
   const redirectLink = (siteName, url) => {
     return (
@@ -79,7 +93,7 @@ export default function Navbar({ searchedPosts, setSearchedPosts }) {
           <h2>The Forum</h2>
         </MenuItem>
 
-        <Divider />
+        <Divider className='divider' />
         <MenuItem icon={<HomeOutlined />} routerLink={<Link to='/' />}>
           Home
         </MenuItem>
@@ -97,10 +111,7 @@ export default function Navbar({ searchedPosts, setSearchedPosts }) {
         >
           Add a New Post
         </MenuItem>
-        {/* <MenuItem icon={<SearchRounded />} routerLink={<Link to='/posts' />}>
-          Search
-        </MenuItem> */}
-        <Divider />
+        <Divider className='divider' />
         {isLoggedIn ? (
           <>
             <MenuItem
@@ -134,7 +145,7 @@ export default function Navbar({ searchedPosts, setSearchedPosts }) {
           </>
         )}
 
-        <Divider />
+        <Divider className='divider' />
         <SubMenu label='Dev Info' icon={<InfoOutlined />}>
           <SubMenu label='siuusunn' icon={<Add />}>
             <MenuItem icon={<GitHub />}>
@@ -154,11 +165,6 @@ export default function Navbar({ searchedPosts, setSearchedPosts }) {
           </SubMenu>
           <SubMenu label='ParulSingh16' icon={<Add />}>
             <MenuItem icon={<GitHub />}>
-              {/* <Search
-                handleSearchChange={setSearchedPosts}
-                searchedPosts={searchedPosts}
-              /> */}
-
               {redirectLink('GitHub', devLinks.GitHub.ParulSingh16)}
             </MenuItem>
             <MenuItem icon={<LinkedIn />}>
@@ -166,6 +172,11 @@ export default function Navbar({ searchedPosts, setSearchedPosts }) {
             </MenuItem>
           </SubMenu>
         </SubMenu>
+        <Divider />
+        <MenuItem>
+          <Switch onClick={toggleTheme} />
+          Dark Mode
+        </MenuItem>
       </Menu>
     </Sidebar>
   );
