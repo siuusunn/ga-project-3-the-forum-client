@@ -1,0 +1,20 @@
+.dark {
+  background-color: #333;
+  color: #fff;
+
+  .ps-sidebar-container {
+    background-color: black;
+  }
+
+  .ps-menu-button {
+    background-color: black;
+  }
+
+  .ps-menu-button:hover {
+    background-color: grey;
+  }
+}
+.light {
+  background-color: #fff;
+  color: #333;
+}
