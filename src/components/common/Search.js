@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
-import { TextField, Box, Icon } from '@mui/material';
+import { TextField, Stack, Autocomplete, Box } from '@mui/material';
+import { useEffect, useState } from 'react';
 import { API } from '../../lib/api';
-import { Link, useNavigate } from 'react-router-dom';
-import { SearchRounded } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
+import { SearchOutlined } from '@mui/icons-material';
 
 export default function Search() {
   const [posts, setPosts] = useState([]);
@@ -19,6 +19,10 @@ export default function Search() {
     });
   }, [query]);
 
+  const handleChange = (event) => {
+    setQuery(event.target.value);
+  };
+
   useEffect(() => {
     const clearup = () => {
       setIsOpen(false);
@@ -29,37 +33,28 @@ export default function Search() {
     return clearup;
   }, []);
 
-  const clickPost = () => {};
+  console.log(posts);
 
   return (
-    <Box sx={{ position: 'relative' }} className='SEARCH-CONTAINER'>
-      <SearchRounded sx={{ marginLeft: '300px', marginTop: '10px' }} />
-      <TextField value={query} onChange={(e) => setQuery(e.target.value)} />
-      {isOpen && (
-        <Box
-          sx={{
-            position: 'absolute',
-            width: '500px'
-          }}
-          className='OPTIONS-CONTAINER'
-        >
-          <Box
-            component='ul'
-            sx={{ backgroundColor: '#ececec', padding: '10px', width: '100%' }}
-          >
-            {posts.map((post) => (
-              <Box
-                component='li'
-                key={post._id}
-                sx={{ listStyle: 'none', marginBottom: '10px' }}
-                onClick={clickPost}
-              >
-                <Link to={`/posts/${post._id}`}>{post.topic}</Link>
-              </Box>
-            ))}
-          </Box>
-        </Box>
-      )}
-    </Box>
+    <Stack spacing={2} sx={{ width: 300 }}>
+      <Box
+        sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+      >
+        <SearchOutlined sx={{ mr: 1 }} />
+        <Autocomplete
+          id='free-solo-demo'
+          freeSolo
+          options={posts?.map((option) => option.topic)}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label='Search'
+              onChange={handleChange}
+              sx={{ minWidth: 300 }}
+            />
+          )}
+        />
+      </Box>
+    </Stack>
   );
 }
