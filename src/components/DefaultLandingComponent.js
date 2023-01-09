@@ -31,8 +31,8 @@ const DefaultLandingComponent = () => {
           <p>Make your own post by clicking "Add a New Post" on the sidebar!</p>
           <p>Or search for posts using the seach bar below!</p>
           <br></br>
-          <Search />
         </Box>
+        <Search />
       </Box>
     </Container>
   );
