@@ -174,7 +174,11 @@ export default function Navbar({ searchedPosts, setSearchedPosts }) {
         </SubMenu>
         <Divider />
         <MenuItem>
-          <Switch onClick={toggleTheme} />
+          {theme === 'light' ? (
+            <Switch onClick={toggleTheme} />
+          ) : (
+            <Switch onClick={toggleTheme} defaultChecked />
+          )}
           Dark Mode
         </MenuItem>
       </Menu>
