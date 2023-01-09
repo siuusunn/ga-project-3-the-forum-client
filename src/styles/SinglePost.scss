@@ -1,5 +1,8 @@
 .SinglePost {
-  .original-content{
+  .disabled-button {
+    cursor: default;
+  }
+  .original-content {
     color: white;
     background-color: grey;
   }
@@ -11,7 +14,7 @@
     p {
       margin: 0px 0px 0px 3px;
     }
-    .link{
+    .link {
       font-weight: bold;
       text-transform: lowercase;
       margin-left: 5px;

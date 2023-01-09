@@ -19,7 +19,8 @@ import {
   TextField,
   Accordion,
   AccordionSummary,
-  AccordionDetails
+  AccordionDetails,
+  Paper
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
@@ -41,6 +42,7 @@ export const DisplayPost = ({ id, setPostsUpdated, userData }) => {
 
   useEffect(() => {
     setIsPostDeleted(false);
+    setIsDisplayingOriginalContent(false);
   }, [id]);
 
   useEffect(() => {
@@ -163,15 +165,23 @@ export const DisplayPost = ({ id, setPostsUpdated, userData }) => {
                 </>
               </div>
             )}
+            <Paper
+              elevation={4}
+              sx={{ padding: 1, margin: '5px 0px 10px 0px' }}
+            >
+              {isDisplayingOriginalContent ? (
+                <p className='original-content'>
+                  {singlePost?.originalContent}
+                </p>
+              ) : (
+                <p>{singlePost?.content}</p>
+              )}
+            </Paper>
+
             <p>
               Posted by: {singlePost?.addedBy.username} on{' '}
               <i>{`${humanDate}`}</i>
             </p>
-            {isDisplayingOriginalContent ? (
-              <p className='original-content'>{singlePost?.originalContent}</p>
-            ) : (
-              <p>{singlePost?.content}</p>
-            )}
 
             <div className='likes-postactions-container'>
               <div className='likes-container-outer'>
@@ -190,15 +200,28 @@ export const DisplayPost = ({ id, setPostsUpdated, userData }) => {
               {isLoggedIn && (
                 <div className='post-actions'>
                   {AUTH.isOwner(singlePost?.addedBy._id) && (
-                    <Link to={`/posts/${id}/edit`}>
-                      <Button
-                        size='small'
-                        onClick={handleEditPost}
-                        variant='contained'
-                      >
-                        Edit Post
-                      </Button>
-                    </Link>
+                    <>
+                      {singlePost?.isEdited ? (
+                        <Button
+                          className='disabled-button'
+                          disabled
+                          size='small'
+                          variant='contained'
+                        >
+                          Edited
+                        </Button>
+                      ) : (
+                        <Link to={`/posts/${id}/edit`}>
+                          <Button
+                            size='small'
+                            onClick={handleEditPost}
+                            variant='contained'
+                          >
+                            Edit Post
+                          </Button>
+                        </Link>
+                      )}
+                    </>
                   )}
                   {(AUTH.isOwner(singlePost?.addedBy._id) ||
                     AUTH.getPayload().isAdmin) && (
