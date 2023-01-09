@@ -1,4 +1,7 @@
 .SinglePost {
+  height: 100vh;
+  overflow-y: scroll;
+
   .spinner-container {
     display: flex;
     width: 100%;

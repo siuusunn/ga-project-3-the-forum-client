@@ -5,21 +5,16 @@ import {
   Paper,
   ImageList,
   ImageListItem,
-  ImageListItemBar,
-  ListSubheader
+  ImageListItemBar
 } from '@mui/material';
 
 import { thumbnail } from '@cloudinary/url-gen/actions/resize';
-import { byRadius } from '@cloudinary/url-gen/actions/roundCorners';
-import { focusOn } from '@cloudinary/url-gen/qualifiers/gravity';
-import { FocusOn } from '@cloudinary/url-gen/qualifiers/focusOn';
 
 import { AdvancedImage } from '@cloudinary/react';
 import { useEffect, useState } from 'react';
 import { API } from '../lib/api';
 import { Link } from 'react-router-dom';
 
-import ProfilePicture from './common/ProfilePicture';
 import adminPic from '../assets/adminPic.png';
 import { Cloudinary } from '@cloudinary/url-gen';
 
