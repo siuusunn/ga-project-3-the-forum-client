@@ -22,6 +22,7 @@ import {
   AccordionDetails
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 import '../styles/SinglePost.scss';
 
@@ -35,6 +36,8 @@ export const DisplayPost = ({ id, setPostsUpdated, userData }) => {
   const [isContentUpdated, setIsContentUpdated] = useState(false);
   const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState(false);
   const [isPostDeleted, setIsPostDeleted] = useState(false);
+  const [isDisplayingOriginalContent, setIsDisplayingOriginalContent] =
+    useState(false);
 
   useEffect(() => {
     setIsPostDeleted(false);
@@ -113,6 +116,10 @@ export const DisplayPost = ({ id, setPostsUpdated, userData }) => {
     handleDeleteAlertClose();
   };
 
+  const toggleOriginalEdited = () => {
+    setIsDisplayingOriginalContent(!isDisplayingOriginalContent);
+  };
+
   const humanDate = new Date(singlePost?.createdAt).toLocaleString();
 
   if (isPostDeleted) {
@@ -128,12 +135,44 @@ export const DisplayPost = ({ id, setPostsUpdated, userData }) => {
       <>
         <Container className='SinglePost'>
           <Box>
-            <h1>{singlePost?.topic}</h1>
+            {isDisplayingOriginalContent ? (
+              <h1 className='original-content'>{singlePost?.originalTopic}</h1>
+            ) : (
+              <h1>{singlePost?.topic}</h1>
+            )}
+            {singlePost?.isEdited && (
+              <div className='notify-if-edited'>
+                <>
+                  <InfoOutlinedIcon />
+                  {isDisplayingOriginalContent ? (
+                    <p>Now viewing the original post</p>
+                  ) : (
+                    <p>This post has been edited.</p>
+                  )}
+                  <Button
+                    size='small'
+                    className='link'
+                    onClick={toggleOriginalEdited}
+                  >
+                    {isDisplayingOriginalContent ? (
+                      <p>Show edited</p>
+                    ) : (
+                      <p>Show original</p>
+                    )}
+                  </Button>
+                </>
+              </div>
+            )}
             <p>
               Posted by: {singlePost?.addedBy.username} on{' '}
               <i>{`${humanDate}`}</i>
             </p>
-            <p>{singlePost?.content}</p>
+            {isDisplayingOriginalContent ? (
+              <p className='original-content'>{singlePost?.originalContent}</p>
+            ) : (
+              <p>{singlePost?.content}</p>
+            )}
+
             <div className='likes-postactions-container'>
               <div className='likes-container-outer'>
                 <div className='likes-container-inner'>
