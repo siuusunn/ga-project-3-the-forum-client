@@ -14,8 +14,13 @@ import {
   DialogTitle,
   DialogContent,
   DialogContentText,
-  DialogActions
+  DialogActions,
+  TextField,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails
 } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import '../styles/SinglePost.scss';
 
@@ -163,21 +168,34 @@ export const DisplayPost = ({ id, setPostsUpdated, userData }) => {
             </div>
           </Box>
           <div className='comments-container'>
+            <h3>Comments</h3>
             {isLoggedIn && (
-              <form onSubmit={handleNewCommentSubmit}>
-                <div>
-                  <h3>Comments</h3>
-                  <label htmlFor='comment-text'>Add a comment: </label>
-                  <input
-                    type='text'
-                    id='comment-text'
-                    name='text'
-                    value={newCommentFormFields.text}
-                    onChange={handleNewCommentChange}
-                  ></input>
-                </div>
-                <button type='submit'>Submit</button>
-              </form>
+              <div>
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls='panel1a-content'
+                    id='panel1a-header'
+                  >
+                    <label htmlFor='comment-text'>Add a comment: </label>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <form onSubmit={handleNewCommentSubmit}>
+                      <TextField
+                        type='text'
+                        id='comment-text'
+                        name='text'
+                        multiline
+                        rows={4}
+                        sx={{ width: '100%' }}
+                        value={newCommentFormFields.text}
+                        onChange={handleNewCommentChange}
+                      ></TextField>
+                      <button type='submit'>Submit</button>
+                    </form>
+                  </AccordionDetails>
+                </Accordion>
+              </div>
             )}
 
             <CommentThread
