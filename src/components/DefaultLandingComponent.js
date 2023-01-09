@@ -1,4 +1,5 @@
 import adminPic from '../assets/adminPic.png';
+import Search from './common/Search';
 
 import { Container, Box, Avatar } from '@mui/material';
 
@@ -27,9 +28,10 @@ const DefaultLandingComponent = () => {
           <p>
             Start browsing posts by clicking on the post titles on the left.
           </p>
-          <p>
-            Or make your own post by clicking "Add a New Post" on the sidebar!
-          </p>
+          <p>Make your own post by clicking "Add a New Post" on the sidebar!</p>
+          <p>Or search for posts using the seach bar below!</p>
+          <br></br>
+          <Search />
         </Box>
       </Box>
     </Container>
