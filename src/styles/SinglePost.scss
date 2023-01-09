@@ -1,4 +1,30 @@
 .SinglePost {
+  .disabled-button {
+    cursor: default;
+  }
+  .original-content {
+    color: white;
+    background-color: grey;
+  }
+  .notify-if-edited {
+    color: red;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    p {
+      margin: 0px 0px 0px 3px;
+    }
+    .link {
+      font-weight: bold;
+      text-transform: lowercase;
+      margin-left: 5px;
+      background-color: rgb(38, 123, 214);
+      color: white;
+      &:hover {
+        background-color: rgb(2, 56, 114);
+      }
+    }
+  }
   .inform-deleted-container {
     width: 100%;
     height: 100%;
