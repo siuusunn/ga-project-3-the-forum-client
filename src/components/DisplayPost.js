@@ -120,45 +120,47 @@ export const DisplayPost = ({ id, setPostsUpdated, userData }) => {
               <i>{`${humanDate}`}</i>
             </p>
             <p>{singlePost?.content}</p>
-            <div className='likes-container-outer'>
-              <div className='likes-container-inner'>
-                <PostLikes
-                  storedLikes={singlePost?.likes}
-                  storedDislikes={singlePost?.dislikes}
-                  id={id}
-                  setIsContentUpdated={setIsContentUpdated}
-                  setPostsUpdated={setPostsUpdated}
-                  userData={userData}
-                  isButtonDisabled={false}
-                />
+            <div className='likes-postactions-container'>
+              <div className='likes-container-outer'>
+                <div className='likes-container-inner'>
+                  <PostLikes
+                    storedLikes={singlePost?.likes}
+                    storedDislikes={singlePost?.dislikes}
+                    id={id}
+                    setIsContentUpdated={setIsContentUpdated}
+                    setPostsUpdated={setPostsUpdated}
+                    userData={userData}
+                    isButtonDisabled={false}
+                  />
+                </div>
               </div>
-            </div>
-            {isLoggedIn && (
-              <div className='post-actions'>
-                {AUTH.isOwner(singlePost?.addedBy._id) && (
-                  <Link to={`/posts/${id}/edit`}>
+              {isLoggedIn && (
+                <div className='post-actions'>
+                  {AUTH.isOwner(singlePost?.addedBy._id) && (
+                    <Link to={`/posts/${id}/edit`}>
+                      <Button
+                        size='small'
+                        onClick={handleEditPost}
+                        variant='contained'
+                      >
+                        Edit Post
+                      </Button>
+                    </Link>
+                  )}
+                  {(AUTH.isOwner(singlePost?.addedBy._id) ||
+                    AUTH.getPayload().isAdmin) && (
                     <Button
                       size='small'
-                      onClick={handleEditPost}
+                      color='error'
+                      onClick={handleDeleteAlertOpen}
                       variant='contained'
                     >
-                      Edit Post
+                      Delete Post
                     </Button>
-                  </Link>
-                )}
-                {(AUTH.isOwner(singlePost?.addedBy._id) ||
-                  AUTH.getPayload().isAdmin) && (
-                  <Button
-                    size='small'
-                    color='error'
-                    onClick={handleDeleteAlertOpen}
-                    variant='contained'
-                  >
-                    Delete Post
-                  </Button>
-                )}
-              </div>
-            )}
+                  )}
+                </div>
+              )}
+            </div>
           </Box>
           <div className='comments-container'>
             {isLoggedIn && (
