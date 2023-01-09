@@ -5,8 +5,11 @@ import {
   Paper,
   ImageList,
   ImageListItem,
-  ImageListItemBar
+  ImageListItemBar,
+  Switch
 } from '@mui/material';
+
+import '../styles/darkMode.css';
 
 import { thumbnail } from '@cloudinary/url-gen/actions/resize';
 
@@ -20,6 +23,20 @@ import { Cloudinary } from '@cloudinary/url-gen';
 
 export default function Home() {
   const [users, setUsers] = useState(null);
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
+
+  const toggleTheme = () => {
+    if (theme === 'light') {
+      setTheme('dark');
+    } else {
+      setTheme('light');
+    }
+  };
+
+  useEffect(() => {
+    localStorage.setItem('theme', theme);
+    document.body.className = theme;
+  }, [theme]);
 
   const cld = new Cloudinary({
     cloud: {
@@ -114,6 +131,7 @@ export default function Home() {
             ))}
           </ImageList>
         </Paper>
+        <Switch label='Dark-Mode' defaultChecked onClick={toggleTheme} />
       </Container>
     </>
   );
