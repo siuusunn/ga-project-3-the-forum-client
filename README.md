@@ -1,7 +1,5 @@
 # ga-project-03-api
 
-# GA PROJECT 01 - ALICE LO
-
 ## Project Description
 
 A fullstack MERN app named The Forum that features a discussion board which allows registered users to create posts, search posts, like/ dislike posts and create comments. My focus on this project was implementing the sidebar, the user functionalities in both backend and frontend, e.g. register/ login, edit profile, change password, the design of the app, and general project management. We successfully implemented the Agile workflow in this project with the help of Trello which made the development process seamless.
