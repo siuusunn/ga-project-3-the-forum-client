@@ -154,7 +154,8 @@ export const DisplayPost = ({ id, setPostsUpdated, userData }) => {
           </Container>
         ) : (
           <div>
-            <Container className='SinglePost'>
+            {/* TEMP FIX FOR DISPLAYPOST WIDTH */}
+            <Container className='SinglePost' sx={{ width: '500%' }}>
               <Box>
                 {isDisplayingOriginalContent ? (
                   <h1 className='original-content'>

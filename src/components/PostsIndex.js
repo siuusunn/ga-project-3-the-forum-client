@@ -51,9 +51,9 @@ export default function PostsIndex() {
   };
 
   return (
-    <Box
+    <div
       className='PostsIndex'
-      sx={{ width: '100%', display: 'flex', flexDirection: 'row' }}
+      // sx={{ width: '100%', display: 'flex', flexDirection: 'row' }}
     >
       <div className='grid-left'>
         <>
@@ -73,12 +73,12 @@ export default function PostsIndex() {
           ))}
         </>
       </div>
-      <Grid
+      <div
         className='grid-right'
-        container
-        spacing={4}
-        columns={1}
-        sx={{ marginLeft: '12px', marginTop: '20px', width: '50%' }}
+        // container
+        // spacing={4}
+        // columns={1}
+        // sx={{ marginLeft: '12px', marginTop: '20px', width: '50%' }}
       >
         {id ? (
           <DisplayPost
@@ -89,7 +89,7 @@ export default function PostsIndex() {
         ) : (
           <DefaultLandingComponent />
         )}
-      </Grid>
-    </Box>
+      </div>
+    </div>
   );
 }
