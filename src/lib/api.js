@@ -1,16 +1,20 @@
 import axios from 'axios';
 import { AUTH } from './auth';
+import baseUrl from '../config';
 
 const ENDPOINTS = {
-  allPosts: '/api/posts',
-  singlePost: (id) => `/api/posts/${id}`,
-  commentsForPost: (id) => `/api/posts/${id}/comments`,
-  singleComment: (commentId) => `/api/comments/${commentId}`,
-  allUsers: '/api/users',
-  singleUser: (id) => `/api/users/${id}`,
-  login: `/api/login`,
-  register: `/api/register`,
-  search: (query) => `/api//posts/search?search=${query}`,
+  allPosts: `${process.env.REACT_APP_BASE_URL}/api/posts`,
+  singlePost: (id) => `${process.env.REACT_APP_BASE_URL}/api/posts/${id}`,
+  commentsForPost: (id) =>
+    `${process.env.REACT_APP_BASE_URL}/api/posts/${id}/comments`,
+  singleComment: (commentId) =>
+    `${process.env.REACT_APP_BASE_URL}/api/comments/${commentId}`,
+  allUsers: `${process.env.REACT_APP_BASE_URL}/api/users`,
+  singleUser: (id) => `${process.env.REACT_APP_BASE_URL}/api/users/${id}`,
+  login: `${process.env.REACT_APP_BASE_URL}/api/login`,
+  register: `${process.env.REACT_APP_BASE_URL}/api/register`,
+  search: (query) =>
+    `${process.env.REACT_APP_BASE_URL}/api//posts/search?search=${query}`,
   cloudinary: `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/image/upload`
 };
 
